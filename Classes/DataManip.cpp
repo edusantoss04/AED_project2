@@ -94,6 +94,29 @@ void DataManip::readAirports() {
 
 void DataManip::readFlights() {
 
+    ifstream in("../dataset/flights.csv");
+    string line, source, target, airline;
+    getline(in, line);
+
+    for (auto it = airports_.begin(); it != airports_.end(); it++){
+        graph_.addVertex(*it->second);
+    }
+
+    if (in.is_open()) {
+
+        while(getline(in, line)){
+
+            istringstream iss(line);
+
+            getline(iss, source, ',');
+            getline(iss, target, ',');
+            getline(iss, airline, ',');
+
+            graph_.addEdge(*airports_[source], *airports_[target], airline);
+
+        }
+
+    } else cout << "Could not open the file\n";
 
 }
 

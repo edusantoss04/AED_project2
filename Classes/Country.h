@@ -11,7 +11,6 @@ private:
     set<string> cities_;
 public:
     Country(string& name);
-    Country();
     string getName();
     set<string> getCities();
 };

@@ -14,6 +14,9 @@ class Airport {
         Coordinate coordinate_;
     public:
     Airport(string& code, string& name,string& city,double latitude,double longitude);
+
+    Airport();
+
     string getCode();
     string getName();
     string getCity();

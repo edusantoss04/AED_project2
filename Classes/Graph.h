@@ -22,7 +22,7 @@ class Vertex;
 /****************** Provided structures  ********************/
 
 class Vertex {
-    Airport* airport;                // contents
+    Airport airport;                // contents
     vector<Edge> adj;  // list of outgoing edges
     bool visited;          // auxiliary field
     bool processing;       // auxiliary field
@@ -30,12 +30,12 @@ class Vertex {
     int num;               // auxiliary field
     int low;               // auxiliary field
 
-    void addEdge(Vertex *dest, double w);
+    void addEdge(Vertex *dest, string airline);
     bool removeEdgeTo(Vertex *d);
 public:
     Vertex(Airport in);
-    Airport getInfo() const;
-    void setInfo(Airport in);
+    Airport getAirport() const;
+    void setAirport(Airport in);
     bool isVisited() const;
     void setVisited(bool v);
     bool isProcessing() const;
@@ -60,9 +60,9 @@ public:
 
 class Edge {
     Vertex * dest;      // destination vertex
-    double weight;         // edge weight
+    string airline ;         // edge weight
 public:
-    Edge(Vertex *d, double w);
+    Edge(Vertex *d, string airline);
     Vertex *getDest() const;
     void setDest(Vertex *dest);
     double getWeight() const;
@@ -84,7 +84,7 @@ public:
     Vertex *findVertex(const Airport &in) const;
     int getNumVertex() const;
     bool addVertex(const Airport &in);
-    bool addEdge(const Airport &sourc, const Airport &dest, double w);
+    bool addEdge(const Airport &sourc, const Airport &dest, const string airline);
     bool removeVertex(const Airport &in);
     bool removeEdge(const Airport &sourc, const Airport &dest);
     vector<Vertex* > getVertexSet() const;

@@ -16,8 +16,6 @@
 #include "Country.h"
 #include "Graph.h"
 
-#define AIRPORTS "../dataset/airports.csv"
-#define FLIGHTS "../dataset/flights.csv"
 
 using namespace std;
 

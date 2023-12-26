@@ -5,6 +5,9 @@
 #include "Country.h"
 
 
+Country::Country(std::string &name) {
+    name_ = name;
+}
 
 string Country::getName() {
     return name_;
@@ -13,4 +16,6 @@ string Country::getName() {
 set<string> Country::getCities() {
     return cities_;
 }
+
+
 
