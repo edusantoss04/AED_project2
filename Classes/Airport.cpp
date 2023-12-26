@@ -39,6 +39,14 @@ void Airport::setCoordinate(double latitude, double longitude) {
     coordinate_=Coordinate(latitude,longitude);
 }
 
+bool Airport::operator==(Airport other) {
+    return code_ == other.code_ &&
+            name_ == other.name_ &&
+            city_ == other.city_ &&
+            coordinate_.getLatitude() == other.coordinate_.getLatitude() &&
+            coordinate_.getLongitude() == other.coordinate_.getLongitude();
+}
+
 
 
 

@@ -1,5 +1,5 @@
-#ifndef AED_PROJECT2_AIRLINES_H
-#define AED_PROJECT2_AIRLINES_H
+#ifndef AED_PROJECT2_AIRLINE_H
+#define AED_PROJECT2_AIRLINE_H
 
 #include <iostream>
 
@@ -29,4 +29,4 @@ public:
 
 
 
-#endif //AED_PROJECT2_AIRLINES_H
+#endif //AED_PROJECT2_AIRLINE_H

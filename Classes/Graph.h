@@ -84,8 +84,8 @@ public:
     Vertex *findVertex(const Airport &in) const;
     int getNumVertex() const;
     bool addVertex(const Airport &in);
-    bool removeVertex(const Airport &in);
     bool addEdge(const Airport &sourc, const Airport &dest, double w);
+    bool removeVertex(const Airport &in);
     bool removeEdge(const Airport &sourc, const Airport &dest);
     vector<Vertex* > getVertexSet() const;
     vector<Airport>dfs() const;

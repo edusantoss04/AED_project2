@@ -23,6 +23,8 @@ class Airport {
     void setCity(string& city);
     void setCoordinate(double latitude,double longitude);
 
+    bool operator==(Airport other);
+
 };
 
 
