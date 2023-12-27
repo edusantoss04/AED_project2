@@ -26,7 +26,7 @@ void DataManip::createCountries() {
 
     for (auto city: cities_){
 
-        countries_[city.second->getCountry()]->getCities().insert(city.second->getName());
+        countries_[city.second->getCountryName()]->getCities().insert(city.second->getName());
 
     }
 }
@@ -119,5 +119,6 @@ void DataManip::readFlights() {
     } else cout << "Could not open the file\n";
 
 }
+
 
 

@@ -12,20 +12,11 @@ int main() {
     d.readAirports();
     d.readFlights();
 
-    Menu menu= Menu(d);
-    menu.MainMenu();
+    cout << d.nrReachableCountriesFromCity("Bermuda");
 
-    /*for (const auto& airline : d.getAirlines()) {
-        cout << (airline.second)->getName() << endl;
-    }
-    cout << d.getAirlines().size();
+    //Menu menu= Menu(d);
+    //menu.MainMenu();
 
-    for (auto airport: d.getAirports()) {
-        cout << airport.second->getCode() << endl;
-    }
-    cout << d.getAirports().size();
-*/
-    cout <<d.getAirports().size();
     return 0;
 
 }

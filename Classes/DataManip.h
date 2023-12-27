@@ -53,12 +53,15 @@ public:
 
     //Airport Statistics
     int nrFlightsOfAirport(const string& airportCode);
+    int nrAirlinesOfAirport(const string& airportCode);
+    int nrReachableCountriesFromAirport(const string& airportCode);
 
     //Airline Statictis
 
     //Country Statistics
 
     //City Statistics
+    int nrReachableCountriesFromCity(const string& cityName);
 
 };
 

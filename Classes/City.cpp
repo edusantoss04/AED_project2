@@ -14,7 +14,7 @@ string City::getName() {
     return name_;
 }
 
-string City::getCountry() {
+string City::getCountryName() {
     return country_;
 }
 
