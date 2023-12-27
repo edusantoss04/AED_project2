@@ -1,5 +1,6 @@
 #include "DataManip.h"
 #include "Menu.h"
+#include "Graph.h"
 #include <iostream>
 
 using namespace std;
@@ -10,6 +11,7 @@ int main() {
     d.readAirlines();
     d.readAirports();
     d.readFlights();
+
     Menu menu= Menu(d);
     menu.MainMenu();
 
@@ -23,7 +25,7 @@ int main() {
     }
     cout << d.getAirports().size();
 */
-
+    cout <<d.getAirports().size();
     return 0;
 
 }
