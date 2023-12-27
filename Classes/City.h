@@ -13,7 +13,7 @@ public:
     City(string& name,string& country);
 
     string getName();
-    string getCountry();
+    string getCountryName();
 
     void setName(string name);
     void setCountry(string country);
