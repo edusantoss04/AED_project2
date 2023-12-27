@@ -22,7 +22,7 @@ class Vertex;
 /****************** Provided structures  ********************/
 
 class Vertex {
-    Airport airport;                // contents
+    Airport* airport;                // contents
     vector<Edge> adj;  // list of outgoing edges
     bool visited;          // auxiliary field
     bool processing;       // auxiliary field
@@ -33,9 +33,9 @@ class Vertex {
     void addEdge(Vertex *dest, string airline);
     bool removeEdgeTo(Vertex *d);
 public:
-    Vertex(Airport in);
-    Airport getAirport() const;
-    void setAirport(Airport in);
+    Vertex(Airport* in);
+    Airport* getAirport() const;
+    void setAirport(Airport* in);
     bool isVisited() const;
     void setVisited(bool v);
     bool isProcessing() const;
@@ -81,10 +81,10 @@ class Graph {
     void dfsVisit(Vertex *v,vector<Airport> & res) const;
     bool dfsIsDAG(Vertex *v) const;
 public:
-    Vertex *findVertex(const Airport &in) const;
+    Vertex *findVertex(const string& in) const;
     int getNumVertex() const;
-    bool addVertex(const Airport &in);
-    bool addEdge(const Airport &sourc, const Airport &dest, const string airline);
+    bool addVertex(Airport *in);
+    bool addEdge(const string& sourcCode, const string& destCode, const string& airline);
     bool removeVertex(const Airport &in);
     bool removeEdge(const Airport &sourc, const Airport &dest);
     vector<Vertex* > getVertexSet() const;

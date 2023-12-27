@@ -47,6 +47,9 @@ bool Airport::operator==(Airport other) {
             coordinate_.getLongitude() == other.coordinate_.getLongitude();
 }
 
+Airport::Airport() {
+}
+
 
 
 

@@ -99,7 +99,7 @@ void DataManip::readFlights() {
     getline(in, line);
 
     for (auto it = airports_.begin(); it != airports_.end(); it++){
-        graph_.addVertex(*it->second);
+        graph_.addVertex(it->second);
     }
 
     if (in.is_open()) {
@@ -112,7 +112,7 @@ void DataManip::readFlights() {
             getline(iss, target, ',');
             getline(iss, airline, ',');
 
-            graph_.addEdge(*airports_[source], *airports_[target], airline);
+            graph_.addEdge(source, target, airline);
 
         }
 
