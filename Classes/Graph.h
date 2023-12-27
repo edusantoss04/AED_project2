@@ -31,7 +31,7 @@ class Vertex {
     int low;               // auxiliary field
 
     void addEdge(Vertex *dest, string airline);
-    bool removeEdgeTo(Vertex *d);
+    //bool removeEdgeTo(Vertex *d);
 public:
     Vertex(Airport* in);
     Airport* getAirport() const;
@@ -41,7 +41,7 @@ public:
     bool isProcessing() const;
     void setProcessing(bool p);
     const vector<Edge> &getAdj() const;
-    void setAdj(const vector<Edge> &adj);
+    //void setAdj(const vector<Edge> &adj);
 
     int getIndegree() const;
 
@@ -64,9 +64,9 @@ class Edge {
 public:
     Edge(Vertex *d, string airline);
     Vertex *getDest() const;
-    void setDest(Vertex *dest);
-    double getWeight() const;
-    void setWeight(double weight);
+    //void setDest(Vertex *dest);
+    string getAirline() const;
+    //void setWeight(double weight);
     friend class Graph ;
     friend class Vertex ;
 };
@@ -85,8 +85,8 @@ public:
     int getNumVertex() const;
     bool addVertex(Airport *in);
     bool addEdge(const string& sourcCode, const string& destCode, const string& airline);
-    bool removeVertex(const Airport &in);
-    bool removeEdge(const Airport &sourc, const Airport &dest);
+    //bool removeVertex(const Airport &in);
+    //bool removeEdge(const Airport &sourc, const Airport &dest);
     vector<Vertex* > getVertexSet() const;
     vector<Airport>dfs() const;
     vector<Airport> dfs(const Airport & source) const;

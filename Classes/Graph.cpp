@@ -29,6 +29,14 @@ Vertex *Graph::findVertex(const string& in) const {
     return nullptr;
 }
 
+int Graph::getNumVertex() const {
+    return vertexSet.size();
+}
+
+vector<Vertex *> Graph::getVertexSet() const {
+    return vertexSet;
+}
+
 //Vertex functions
 
 Vertex::Vertex(Airport* in) {
@@ -47,9 +55,61 @@ void Vertex::addEdge(Vertex *dest, string airline) {
     adj.push_back(Edge(dest, airline));
 }
 
+bool Vertex::isVisited() const {
+    return visited;
+}
+
+void Vertex::setVisited(bool v) {
+    visited = v;
+}
+
+bool Vertex::isProcessing() const {
+    return processing;
+}
+
+void Vertex::setProcessing(bool p) {
+    processing = p;
+}
+
+const vector<Edge> &Vertex::getAdj() const {
+    return adj;
+}
+
+int Vertex::getIndegree() const {
+    return indegree;
+}
+
+void Vertex::setIndegree(int indegree) {
+    this->indegree = indegree;
+}
+
+int Vertex::getNum() const {
+    return num;
+}
+
+void Vertex::setNum(int num) {
+    this->num = num;
+}
+
+int Vertex::getLow() const {
+    return low;
+}
+
+void Vertex::setLow(int low) {
+    this->low = low;
+}
+
 //Edge functions
 
 Edge::Edge(Vertex *d, string airline) {
     this->dest = d;
     this->airline = airline;
+}
+
+Vertex *Edge::getDest() const {
+    return dest;
+}
+
+string Edge::getAirline() const {
+    return airline;
 }
