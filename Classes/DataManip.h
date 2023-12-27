@@ -41,6 +41,25 @@ public:
     void readFlights();
 
     void createCountries();
+
+    //Statistics
+
+    //Global Statistics
+    int nrAirports();
+    int nrAirlines();
+    int nrFlights();
+    int nrCountries();
+    int nrCities();
+
+    //Airport Statistics
+    int nrFlightsOfAirport(const string& airportCode);
+
+    //Airline Statictis
+
+    //Country Statistics
+
+    //City Statistics
+
 };
 
 
