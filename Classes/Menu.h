@@ -22,6 +22,12 @@ public:
     void getStatistics();
     void globalStatistics();
     void airportStatistics();
+    void airlineStatistics();
+    void countryStatistics();
+    void cityStatistics();
+    void apInfo();
+    void otherInfo();
+
 
 
 
