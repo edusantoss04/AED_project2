@@ -12,8 +12,10 @@ int main() {
     d.readAirports();
     d.readFlights();
 
-    Menu menu= Menu(d);
-    menu.MainMenu();
+    cout << d.nrAirportsFromCity("Paris");
+
+    //Menu menu= Menu(d);
+    //menu.MainMenu();
 
     /*for (const auto& airline : d.getAirlines()) {
         cout << (airline.second)->getName() << endl;
@@ -25,7 +27,7 @@ int main() {
     }
     cout << d.getAirports().size();
 */
-    cout <<d.getAirports().size();
+    //cout <<d.getAirports().size();
     return 0;
 
 }

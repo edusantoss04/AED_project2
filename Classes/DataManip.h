@@ -53,12 +53,18 @@ public:
 
     //Airport Statistics
     int nrFlightsOfAirport(const string& airportCode);
+    int nrCitiesFromAirport(const string& airportCode);
+    int nrAirportsFromAirport(const string& airportCode);
 
     //Airline Statictis
+    int nrFlightsPerAirline(const string& airlineCode);
 
     //Country Statistics
 
     //City Statistics
+    int nrFlightsPerCity(const string& city);
+    int nrCitiesFromCity(const string& city);
+    int nrAirportsFromCity(const string& city);
 
 };
 
