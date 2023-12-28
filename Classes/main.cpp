@@ -12,7 +12,10 @@ int main() {
     d.readAirports();
     d.readFlights();
 
-    cout << d.nrDirectCountriesFromAirport("BDA");
+    //cout << d.nrReachableAirportsFromAirport("BDA");
+    cout << d.nrReachableCountriesFromAirport("OPO");
+
+    //cout << d.nrReachableCitiesFromAirport("OPO");
 
 
     return 0;

@@ -75,6 +75,67 @@ int DataManip::nrDirectCountriesFromAirport(const string &airportCode) {
     return reachableCountries.size();
 }
 
+int DataManip::nrReachableAirportsFromAirport(const string& airportCode){
+    return graph_.dfs(*(airports_[airportCode])).size();
+}
+
+void dfsVisitCountriesFromAirport(Vertex *v, set<string> &res);
+int DataManip::nrReachableCountriesFromAirport(const string& airportCode){
+
+    set<string> countries;
+    auto vertex = graph_.findVertex(airportCode);
+
+    for(auto vertex: graph_.getVertexSet()){
+        vertex.second->setVisited(false);
+    }
+
+    dfsVisitCountriesFromAirport(vertex, countries);
+    return countries.size();
+}
+
+void DataManip::dfsVisitCountriesFromAirport(Vertex *v, set<string> &res){
+
+
+    v->setVisited(true);
+    res.insert(v->getAirport()->getCountry());
+
+    for (Edge edj: v->getAdj()){
+        auto w = edj.getDest();
+        if (!w->isVisited()){
+            dfsVisitCountriesFromAirport(w, res);
+        }
+    }
+}
+
+void dfsVisitCitiesFromAirport(Vertex *v, set<string> &res);
+int DataManip::nrReachableCitiesFromAirport(const string& airportCode){
+
+    set<string> cities;
+    auto vertex = graph_.findVertex(airportCode);
+
+    for(auto vertex: graph_.getVertexSet()){
+        vertex.second->setVisited(false);
+    }
+
+    dfsVisitCitiesFromAirport(vertex, cities);
+    return cities.size();
+}
+
+void DataManip::dfsVisitCitiesFromAirport(Vertex *v, set<string> &res){
+
+
+    v->setVisited(true);
+    res.insert(v->getAirport()->getCity());
+
+    for (Edge edj: v->getAdj()){
+        auto w = edj.getDest();
+        if (!w->isVisited()){
+            dfsVisitCitiesFromAirport(w, res);
+        }
+    }
+}
+
+
 //Airline Statictis
 int DataManip::nrFlightsPerAirline(const string& airlineCode){
 

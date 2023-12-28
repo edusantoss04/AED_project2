@@ -90,7 +90,7 @@ public:
     //bool removeEdge(const Airport &sourc, const Airport &dest);
     unordered_map<string, Vertex*> getVertexSet() const;
     vector<Airport>dfs() const;
-    vector<Airport> dfs(const Airport & source) const;
+    vector<Airport> dfs(Airport &airport) const;
     vector<Airport> bfs(const Airport &source) const;
     vector<Airport> topsort() const;
     bool isDAG() const;

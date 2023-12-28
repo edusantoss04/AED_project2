@@ -59,6 +59,12 @@ public:
     int nrDirectAirportsFromAirport(const string& airportCode);
     int nrDirectCountriesFromAirport(const string& airportCode);
 
+    int nrReachableAirportsFromAirport(const string& airportCode);
+    int nrReachableCountriesFromAirport(const string& airportCode);
+    void dfsVisitCountriesFromAirport(Vertex *v, set<string> &res);
+    int nrReachableCitiesFromAirport(const string& airportCode);
+    void dfsVisitCitiesFromAirport(Vertex *v, set<string> &res);
+
     //Airline Statictis
     int nrFlightsPerAirline(const string& airlineCode);
 

@@ -79,7 +79,7 @@ void DataManip::readAirports() {
             iss >> longitude;
 
             City *city_ = new City(city, country);
-            Airport *airport = new Airport(code, name, city, latitude, longitude);
+            Airport *airport = new Airport(code, name, city, country, latitude, longitude);
             airports_.insert({code, airport});
             cities_.insert({city,city_});
             countries_.insert({country, new Country(country)});
