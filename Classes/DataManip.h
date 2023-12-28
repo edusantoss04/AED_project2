@@ -76,6 +76,11 @@ public:
     int nrDirectAirportsFromCity(const string& city);
     int nrDirectCountriesFromCity(const string& cityName);
 
+
+    //Airport Info
+    int MaximumXDistance(const string& airportCode, int k);
+    void MaximumXDistanceVisit(Vertex* v , int k, vector<Airport> &res);
+
 };
 
 
