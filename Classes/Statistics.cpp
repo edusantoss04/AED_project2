@@ -14,8 +14,8 @@ int DataManip::nrAirlines(){
 int DataManip::nrFlights(){
 
     int nr_flights = 0;
-    for (Vertex *vertex: graph_.getVertexSet()){
-        nr_flights += vertex->getAdj().size();
+    for (auto vertex: graph_.getVertexSet()){
+        nr_flights += vertex.second->getAdj().size();
     }
 
     return nr_flights;
@@ -23,11 +23,13 @@ int DataManip::nrFlights(){
 
 
 //Airport Statistics
-int DataManip::nrFlightsOfAirport(const string& airportCode){
+int DataManip::nrFlightsOutOfAirport(const string& airportCode){
+
     return graph_.findVertex(airportCode)->getAdj().size();
+
 }
 
-int DataManip::nrReachableCitiesFromAirport(const string& airportCode){
+int DataManip::nrDirectCitiesFromAirport(const string& airportCode){
 
     Vertex* vertex = graph_.findVertex(airportCode);
     set<string> cities_names;
@@ -40,14 +42,20 @@ int DataManip::nrReachableCitiesFromAirport(const string& airportCode){
     return cities_names.size();
 }
 
-int DataManip::nrReachableAirportsFromAirport(const string& airportCode){
+int DataManip::nrDirectAirportsFromAirport(const string& airportCode){
 
     Vertex* vertex = graph_.findVertex(airportCode);
+    set<string> airports;
 
-    return vertex->getAdj().size();
+    for (auto edg: vertex->getAdj()){
+
+        airports.insert(edg.getDest()->getAirport()->getCode());
+    }
+
+    return airports.size();
 }
 
-int DataManip::nrAirlinesOfAirport(const std::string &airportCode) {
+int DataManip::nrAirlinesOutOfAirport(const std::string &airportCode) {
     Vertex* SourceAirport = graph_.findVertex(airportCode);
     set<string> Airlines;
     for(auto v: SourceAirport->getAdj()){
@@ -56,7 +64,7 @@ int DataManip::nrAirlinesOfAirport(const std::string &airportCode) {
     return Airlines.size();
 }
 
-int DataManip::nrReachableCountriesFromAirport(const string &airportCode) {
+int DataManip::nrDirectCountriesFromAirport(const string &airportCode) {
     Vertex* SourceAirport = graph_.findVertex(airportCode);
     set<string> reachableCountries;
     for(auto v: SourceAirport->getAdj()){
@@ -71,9 +79,9 @@ int DataManip::nrReachableCountriesFromAirport(const string &airportCode) {
 int DataManip::nrFlightsPerAirline(const string& airlineCode){
 
     int nr_flights = 0;
-    for (Vertex *vertex: graph_.getVertexSet()){
+    for (auto vertex: graph_.getVertexSet()){
 
-            for (Edge edg: vertex->getAdj()){
+            for (Edge edg: vertex.second->getAdj()){
 
                 if (edg.getAirline() == airlineCode){
                     nr_flights++;
@@ -92,18 +100,18 @@ int DataManip::nrFlightsPerCity(const string& city, const string& country){
 
     int nr_flights = 0;
 
-    for (Vertex *vertex: graph_.getVertexSet()){
+    for (auto vertex: graph_.getVertexSet()){
 
-        if(vertex->getAirport()->getCity() == city){
-            nr_flights += vertex->getAdj().size();
+        if(vertex.second->getAirport()->getCity() == city){
+            nr_flights += vertex.second->getAdj().size();
         }
     }
 
-    for (Vertex *vertex: graph_.getVertexSet()){
+    for (auto vertex: graph_.getVertexSet()){
 
-        if(vertex->getAirport()->getCity() != city){
+        if(vertex.second->getAirport()->getCity() != city){
 
-            for (Edge edg: vertex->getAdj()){
+            for (Edge edg: vertex.second->getAdj()){
 
                 if (edg.getDest()->getAirport()->getCity() == city){
                     nr_flights++;
@@ -115,15 +123,15 @@ int DataManip::nrFlightsPerCity(const string& city, const string& country){
     return nr_flights;
 }
 
-int DataManip::nrReachableCitiesFromCity(const string& city){
+int DataManip::nrDirectCitiesFromCity(const string& city){
 
     set<string> cities_names;
 
-    for (Vertex *vertex: graph_.getVertexSet()){
+    for (auto vertex: graph_.getVertexSet()){
 
-        if(vertex->getAirport()->getCity() == city){
+        if(vertex.second->getAirport()->getCity() == city){
 
-            for (Edge edg: vertex->getAdj()){
+            for (Edge edg: vertex.second->getAdj()){
 
                 cities_names.insert(edg.getDest()->getAirport()->getCity());
 
@@ -134,15 +142,15 @@ int DataManip::nrReachableCitiesFromCity(const string& city){
     return cities_names.size();
 }
 
-int DataManip::nrReachableAirportsFromCity(const string& city){
+int DataManip::nrDirectAirportsFromCity(const string& city){
 
     set<string> airports;
 
-    for (Vertex *vertex: graph_.getVertexSet()){
+    for (auto vertex: graph_.getVertexSet()){
 
-        if(vertex->getAirport()->getCity() == city){
+        if(vertex.second->getAirport()->getCity() == city){
 
-            for (Edge edg: vertex->getAdj()){
+            for (Edge edg: vertex.second->getAdj()){
 
                 airports.insert(edg.getDest()->getAirport()->getCode());
 
@@ -153,13 +161,13 @@ int DataManip::nrReachableAirportsFromCity(const string& city){
     return airports.size();
 }
 
-int DataManip::nrReachableCountriesFromCity(const std::string &cityName) {
+int DataManip::nrDirectCountriesFromCity(const std::string &cityName) {
     set <Vertex*> airports;
 
     // Select all airports in cityName
     for(auto v : graph_.getVertexSet()){
-        if(v->getAirport()->getCity()==cityName){
-            airports.insert(v);
+        if(v.second->getAirport()->getCity()==cityName){
+            airports.insert(v.second);
         }
     }
     // Select all different countries reachable from selected airports

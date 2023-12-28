@@ -52,12 +52,12 @@ public:
     int nrCities();
 
     //Airport Statistics
-    int nrFlightsOfAirport(const string& airportCode);
-    int nrAirlinesOfAirport(const string& airportCode);
+    int nrFlightsOutOfAirport(const string& airportCode);
+    int nrAirlinesOutOfAirport(const string& airportCode);
 
-    int nrReachableCitiesFromAirport(const string& airportCode);
-    int nrReachableAirportsFromAirport(const string& airportCode);
-    int nrReachableCountriesFromAirport(const string& airportCode);
+    int nrDirectCitiesFromAirport(const string& airportCode);
+    int nrDirectAirportsFromAirport(const string& airportCode);
+    int nrDirectCountriesFromAirport(const string& airportCode);
 
     //Airline Statictis
     int nrFlightsPerAirline(const string& airlineCode);
@@ -66,9 +66,9 @@ public:
 
     //City Statistics
     int nrFlightsPerCity(const string& city, const string& country);
-    int nrReachableCitiesFromCity(const string& city);
-    int nrReachableAirportsFromCity(const string& city);
-    int nrReachableCountriesFromCity(const string& cityName);
+    int nrDirectCitiesFromCity(const string& city);
+    int nrDirectAirportsFromCity(const string& city);
+    int nrDirectCountriesFromCity(const string& cityName);
 
 };
 

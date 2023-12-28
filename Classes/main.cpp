@@ -12,7 +12,8 @@ int main() {
     d.readAirports();
     d.readFlights();
 
-    cout << d.nrFlightsPerCity("Paris", "ola");
+    cout << d.nrDirectCountriesFromAirport("BDA");
+
 
     return 0;
 

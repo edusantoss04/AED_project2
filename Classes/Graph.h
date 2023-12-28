@@ -11,6 +11,7 @@
 #include <queue>
 #include <stack>
 #include <list>
+#include <unordered_map>
 #include "Airport.h"
 using namespace std;
 
@@ -73,7 +74,7 @@ public:
 
 
 class Graph {
-    vector<Vertex *> vertexSet;      // vertex set
+    unordered_map<string, Vertex*> vertexSet;      // vertex set
     int _index_;                        // auxiliary field
     stack<Vertex> _stack_;           // auxiliary field
     //list<list> _list_sccs_;        // auxiliary field
@@ -81,13 +82,13 @@ class Graph {
     void dfsVisit(Vertex *v,vector<Airport> & res) const;
     bool dfsIsDAG(Vertex *v) const;
 public:
-    Vertex *findVertex(const string& in) const;
+    Vertex *findVertex(const string& airportCode) const;
     int getNumVertex() const;
     bool addVertex(Airport *in);
     bool addEdge(const string& sourcCode, const string& destCode, const string& airline);
     //bool removeVertex(const Airport &in);
     //bool removeEdge(const Airport &sourc, const Airport &dest);
-    vector<Vertex* > getVertexSet() const;
+    unordered_map<string, Vertex*> getVertexSet() const;
     vector<Airport>dfs() const;
     vector<Airport> dfs(const Airport & source) const;
     vector<Airport> bfs(const Airport &source) const;

@@ -9,7 +9,7 @@
 bool Graph::addVertex(Airport *in) {
     if ( findVertex(in->getCode()) != nullptr)
         return false;
-    vertexSet.push_back(new Vertex(in));
+    vertexSet.insert({in->getCode(), new Vertex(in)});
     return true;
 }
 
@@ -22,10 +22,14 @@ bool Graph::addEdge(const string& sourcCode, const string& destCode, const strin
     return true;
 }
 
-Vertex *Graph::findVertex(const string& in) const {
-    for (auto v : vertexSet)
-        if (v->airport->getCode() == in)
-            return v;
+Vertex *Graph::findVertex(const string& airportCode) const {
+
+    auto it = vertexSet.find(airportCode);
+
+    if (it != vertexSet.end()){
+        return it->second;
+    }
+
     return nullptr;
 }
 
@@ -33,7 +37,7 @@ int Graph::getNumVertex() const {
     return vertexSet.size();
 }
 
-vector<Vertex *> Graph::getVertexSet() const {
+unordered_map<string, Vertex *> Graph::getVertexSet() const {
     return vertexSet;
 }
 
