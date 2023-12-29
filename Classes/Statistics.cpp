@@ -248,4 +248,49 @@ int DataManip::MaximumXDistance(const string& airportCode, int k) {
 
     return graph_.bfsStops(airportCode, k)[0];
 }
+//Other info
+pair<vector<pair<string,string>>,int> DataManip::MaximumTrip(){
+    vector<pair<string,string>> vec;
+    int maxTrip=0;
 
+    for(auto airport: graph_.getVertexSet()){
+        for(auto v:graph_.getVertexSet()){
+            v.second->setVisited(false);
+            v.second->setNum(-1);
+        }
+
+        queue<Vertex*> queue1;
+        auto vertex= graph_.findVertex(airport.first);
+        queue1.push(vertex);
+        queue1.front()->setVisited(true);
+
+        while(!queue1.empty()){
+            Vertex* v = queue1.front();
+            queue1.pop();
+            for(auto edg:v->getAdj()){
+
+                auto w= edg.getDest();
+                w->setNum((v->getNum()+1));
+                if(!w->isVisited()){
+                    queue1.push(w);
+                    w->setVisited(true);
+                    if(w->getNum() > maxTrip){
+                        vec.clear();
+                        maxTrip=w->getNum();
+                        vec.push_back({airport.first,w->getAirport()->getCode()});
+                    }
+                    if(w->getNum()== maxTrip){
+                        vec.push_back({airport.first,w->getAirport()->getCode()});
+                    }
+                }
+            }
+        }
+    }
+    cout << "max trip: "<< maxTrip <<endl;
+    for (auto r:vec){
+        cout<< r.first << "--> " << r.second;
+    }
+
+    pair<vector<pair<string,string>>,int> a = {vec,maxTrip};
+    return a;
+}
