@@ -79,7 +79,6 @@ public:
 
     //Airport Info
     int MaximumXDistance(const string& airportCode, int k);
-    void MaximumXDistanceVisit(Vertex* v , int k, vector<Airport> &res);
 
 };
 

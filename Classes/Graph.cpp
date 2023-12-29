@@ -41,6 +41,7 @@ unordered_map<string, Vertex *> Graph::getVertexSet() const {
     return vertexSet;
 }
 
+/*
 vector<Airport> Graph::dfs(Airport &airport) const {
 
     vector<Airport> airports;
@@ -65,7 +66,94 @@ void Graph::dfsVisit(Vertex *v, vector<Airport> &res) const {
             dfsVisit(w, res);
         }
     }
+}*/
+
+vector<int> Graph::bfs(const string& airportCode)const {
+    unordered_set<string> airports;
+    unordered_set<string> cities;
+    unordered_set<string> countries;
+
+    auto vertex= findVertex(airportCode);
+
+    if(vertex== nullptr){
+        return {0,0,0};
+    }
+    queue<Vertex*> queue1;
+    for(auto v:vertexSet){
+        v.second->setVisited(false);
+    }
+
+    queue1.push(vertex);
+    vertex->setVisited(false);
+
+    while(!queue1.empty()){
+        auto vertex1= queue1.front();
+        queue1.pop();
+        for(auto& edg:vertex1->getAdj()){
+            auto w= edg.getDest();
+            if(!w->isVisited()){
+                airports.insert(w->getAirport()->getCode());
+                cities.insert(w->getAirport()->getCity());
+                countries.insert(w->getAirport()->getCountry());
+                queue1.push(w);
+                w->setVisited(true);
+            }
+        }
+    }
+    int airportsSize=airports.size();
+    int countriesSize=countries.size();
+    int citiesSize=cities.size();
+
+    return {airportsSize,countriesSize,citiesSize};
 }
+
+vector<int> Graph::bfsStops(const string &airportCode, int k) const {
+    unordered_set<string> airports;
+    unordered_set<string> cities;
+    unordered_set<string> countries;
+
+    auto vertex= findVertex(airportCode);
+
+    if(vertex== nullptr){
+        return {0,0,0};
+    }
+    queue<Vertex*> queue1;
+    for(auto v:vertexSet){
+        v.second->setVisited(false);
+    }
+
+    queue1.push(vertex);
+    vertex->setVisited(false);
+
+    while(k >= 0) {
+
+        int size = queue1.size();
+
+        while (size > 0) {
+            auto vertex1 = queue1.front();
+            queue1.pop();
+
+            for (auto &edg: vertex1->getAdj()) {
+                auto w = edg.getDest();
+                if (!w->isVisited()) {
+                    airports.insert(w->getAirport()->getCode());
+                    cities.insert(w->getAirport()->getCity());
+                    countries.insert(w->getAirport()->getCountry());
+                    queue1.push(w);
+                    w->setVisited(true);
+                }
+            }
+            size--;
+        }
+        k--;
+    }
+    int airportsSize=airports.size();
+    int countriesSize=countries.size();
+    int citiesSize=cities.size();
+
+    return {airportsSize,countriesSize,citiesSize};
+}
+
 
 //Vertex functions
 

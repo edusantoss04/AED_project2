@@ -12,6 +12,7 @@
 #include <stack>
 #include <list>
 #include <unordered_map>
+#include <unordered_set>
 #include "Airport.h"
 using namespace std;
 
@@ -89,9 +90,10 @@ public:
     //bool removeVertex(const Airport &in);
     //bool removeEdge(const Airport &sourc, const Airport &dest);
     unordered_map<string, Vertex*> getVertexSet() const;
-    vector<Airport>dfs() const;
-    vector<Airport> dfs(Airport &airport) const;
-    vector<Airport> bfs(const Airport &source) const;
+    //vector<Airport>dfs() const;
+    //vector<Airport> dfs(Airport &airport) const;
+    vector<int> bfs(const string& airportCode)const;
+    vector<int> bfsStops(const string& airportCode, int k)const;
     vector<Airport> topsort() const;
     bool isDAG() const;
 };

@@ -76,7 +76,7 @@ int DataManip::nrDirectCountriesFromAirport(const string &airportCode) {
 }
 
 int DataManip::nrReachableAirportsFromAirport(const string& airportCode){
-    return graph_.dfs(*(airports_[airportCode])).size();
+    return graph_.bfs(airportCode)[0];
 }
 
 int DataManip::nrReachableCountriesFromAirport(const string& airportCode){
@@ -246,34 +246,6 @@ int DataManip::nrDirectCountriesFromCity(const std::string &cityName) {
 //Airport Info
 int DataManip::MaximumXDistance(const string& airportCode, int k) {
 
-    vector<Airport> res;
-    Vertex* vertex = graph_.findVertex(airportCode);
-
-    for (auto vert: graph_.getVertexSet()){
-        vert.second->setVisited(false);
-    }
-    MaximumXDistanceVisit( vertex, k, res);
-
-    return res.empty() ? 0 : res.size() - 1;;
-
-
-
-
+    return graph_.bfsStops(airportCode, k)[0];
 }
 
-void DataManip::MaximumXDistanceVisit(Vertex* v , int k, vector<Airport> &res){
-
-    v->setVisited(true);
-    res.push_back(*v->getAirport());
-
-    if (k == 0){
-        return;
-    }
-    for (auto edge: v->getAdj()){
-        auto vert = edge.getDest();
-        if (vert->isVisited() == false){
-
-            MaximumXDistanceVisit(vert, k-1, res);
-        }
-    }
-}

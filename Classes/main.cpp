@@ -15,7 +15,8 @@ int main() {
     //cout << d.nrReachableAirportsFromAirport("BDA");
     //cout << d.nrReachableCountriesFromAirport("OPO");
     //cout << d.nrReachableCitiesFromAirport("OPO");
-    cout << d.MaximumXDistance("OPO", 7);
+
+    cout << d.MaximumXDistance("OPO", 5);
 
 
     return 0;
