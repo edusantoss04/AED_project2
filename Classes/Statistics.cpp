@@ -322,10 +322,10 @@ bool DataManip::sortTopKAirports(pair<string, int> a,pair<string, int> b){
     return false;
 }
 
-Graph makeUndirectGraph(Graph graph);
+Graph makeUndirectedGraph(Graph graph);
 unordered_set<string> DataManip::essentialAirports(){
 
-    Graph copy = makeUndirectGraph(graph_);
+    Graph copy = makeUndirectedGraph(graph_);
 
     for (auto v: copy.getVertexSet()){
         v.second->setVisited(false);
@@ -345,7 +345,7 @@ unordered_set<string> DataManip::essentialAirports(){
     return set;
 }
 
-Graph makeUndirectGraph(Graph graph){
+Graph makeUndirectedGraph(Graph graph){
 
     for ( auto v: graph.getVertexSet()){
 
