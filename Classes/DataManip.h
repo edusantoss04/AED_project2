@@ -82,6 +82,12 @@ public:
 
     //Other info
     pair<set<pair<string,string>>,int> MaximumTrip();
+    vector<pair<string,int>> maxKAirport(int k);
+
+    //Auxiliar functions
+    int findInFlights(string airportCode);
+    static bool sortTopKAirports(pair<string, int> a,  pair<string, int> b);
+
 };
 
 

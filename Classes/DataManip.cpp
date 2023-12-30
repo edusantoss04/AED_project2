@@ -112,6 +112,7 @@ void DataManip::readFlights() {
             getline(iss, target, ',');
             getline(iss, airline, ',');
 
+
             graph_.addEdge(source, target, airline);
 
         }
