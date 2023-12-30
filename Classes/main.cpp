@@ -17,7 +17,7 @@ int main() {
     //cout << d.nrReachableCitiesFromAirport("OPO");
 
     //cout << d.MaximumXDistance("OPO", 5);
-    d.maxKAirport(3);
+    d.maxKAirport(1);
 
     return 0;
 

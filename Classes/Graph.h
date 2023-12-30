@@ -29,6 +29,7 @@ class Vertex {
     bool visited;          // auxiliary field
     bool processing;       // auxiliary field
     int indegree;          // auxiliary field
+    int outdegree;         // auxiliary field
     int num;               // auxiliary field
     int low;               // auxiliary field
 
@@ -48,6 +49,10 @@ public:
     int getIndegree() const;
 
     void setIndegree(int indegree);
+
+    int getOutdegree() const;
+
+    void setOutdegree(int outdegree);
 
     int getNum() const;
 

@@ -201,6 +201,14 @@ void Vertex::setIndegree(int indegree) {
     this->indegree = indegree;
 }
 
+int Vertex::getOutdegree() const {
+    return outdegree;
+}
+
+void Vertex::setOutdegree(int outdegree) {
+    this->outdegree=outdegree;
+}
+
 int Vertex::getNum() const {
     return num;
 }

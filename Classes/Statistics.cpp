@@ -298,40 +298,21 @@ pair<set<pair<string,string>>,int> DataManip::MaximumTrip(){
 }
 
 
-vector<pair<string,int>> DataManip::maxKAirport(int k){
+pair<string,int> DataManip::maxKAirport(int k){
     vector<pair<string,int>> vec;
     for (auto vertex : graph_.getVertexSet()){
         int sum=0;
-        sum+=vertex.second->getAdj().size();// voos que saem
-        sum+=findInFlights(vertex.second->getAirport()->getCode());
-        vec.push_back({vertex.second->getAirport()->getCode(),sum});
+        sum+=vertex.second->getOutdegree() + vertex.second->getIndegree();
+        vec.push_back({vertex.second->getAirport()->getName(),sum});
     }
     sort(vec.begin(),vec.end(), sortTopKAirports);
 
-    vector<pair<string, int>> topKVec;
-    for(auto e: vec){
-        if(k>0){
-            topKVec.push_back(e);
-            k--;
-        }
-    }
-    for(auto c: topKVec){
-        cout << c.first << " " << c.second << endl;
-    }
+    pair<string, int> topKVec;
+    topKVec= vec[k-1];
+    cout<< topKVec.first <<" "<< topKVec.second;
     return topKVec;
 }
 
-int DataManip::findInFlights(std::string airportCode) {
-    int s=0;
-    for(auto v: graph_.getVertexSet()){
-        for(auto v1:v.second->getAdj()){
-            if(v1.getDest()->getAirport()->getCode()==airportCode){
-                s++;
-            }
-        }
-    }
-    return s;
-}
 
 bool DataManip::sortTopKAirports(pair<string, int> a,pair<string, int> b){
     if(a.second > b.second) return true;

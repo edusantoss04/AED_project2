@@ -100,6 +100,8 @@ void DataManip::readFlights() {
 
     for (auto it = airports_.begin(); it != airports_.end(); it++){
         graph_.addVertex(it->second);
+        graph_.findVertex(it->second->getCode())->setIndegree(0);
+        graph_.findVertex(it->second->getCode())->setOutdegree(0);
     }
 
     if (in.is_open()) {
@@ -112,9 +114,13 @@ void DataManip::readFlights() {
             getline(iss, target, ',');
             getline(iss, airline, ',');
 
+            Vertex* sourceVertex=graph_.findVertex(source);
+            Vertex* targetVertex=graph_.findVertex(target);
+
+            sourceVertex->setOutdegree(sourceVertex->getOutdegree()+1);
+            targetVertex->setIndegree(targetVertex->getIndegree()+1);
 
             graph_.addEdge(source, target, airline);
-
         }
 
     } else cout << "Could not open the file\n";
