@@ -154,6 +154,53 @@ vector<int> Graph::bfsStops(const string &airportCode, int k) const {
     return {airportsSize,countriesSize,citiesSize};
 }
 
+bool isIn(stack<string> s, string airportCode);
+void Graph::dfsArt(Vertex* vertex, stack<string>& s, unordered_set<string>& set, int& x, string rootNode){
+
+    vertex->setVisited(true);
+    vertex->setLow(x);
+    vertex->setNum(x);
+    x++;
+    s.push(vertex->getAirport()->getCode());
+    int child = 0;
+
+    for (auto edg: vertex->getAdj()){
+
+        auto w = edg.getDest();
+
+        if (!w->isVisited()){
+            child++;
+            dfsArt(w, s, set, x, rootNode);
+            vertex->setLow(min(vertex->getLow(), w->getLow()));
+
+            if (w->getLow() >= vertex->getNum()){
+                set.insert(vertex->getAirport()->getCode());
+            }
+        }
+        else if (isIn(s, w->getAirport()->getCode())){
+
+            vertex->setLow(min(vertex->getLow(), w->getNum()));
+        }
+    }
+
+    if (vertex->getAirport()->getCode() == rootNode){
+        if (child <= 1){
+            set.erase(vertex->getAirport()->getCode());
+        }
+    }
+    s.pop();
+}
+
+bool isIn(stack<string> s, string airportCode){
+
+    while (!s.empty()){
+        if (airportCode == s.top()){
+            return true;
+        }
+        s.pop();
+    }
+    return false;
+}
 
 //Vertex functions
 
@@ -223,6 +270,14 @@ int Vertex::getLow() const {
 
 void Vertex::setLow(int low) {
     this->low = low;
+}
+
+int Vertex::getdistance() {
+    return distance;
+}
+
+void Vertex::setDistance(int distance) {
+    this->distance = distance;
 }
 
 //Edge functions

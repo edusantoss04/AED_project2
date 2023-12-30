@@ -257,14 +257,14 @@ pair<set<pair<string,string>>,int> DataManip::MaximumTrip(){
     for(auto airport: graph_.getVertexSet()){
         for(auto v:graph_.getVertexSet()){
             v.second->setVisited(false);
-            v.second->setNum(-1);
+            v.second->setDistance(-1);
         }
 
         queue<Vertex*> queue1;
         auto vertex= graph_.findVertex(airport.first);
         queue1.push(vertex);
         queue1.front()->setVisited(true);
-        queue1.front()->setNum(0);
+        queue1.front()->setDistance(0);
 
         while(!queue1.empty()){
             Vertex* v = queue1.front();
@@ -274,13 +274,13 @@ pair<set<pair<string,string>>,int> DataManip::MaximumTrip(){
                 auto w= edg.getDest();
 
                 if(!w->isVisited()){
-                    w->setNum((v->getNum()+1));
+                    w->setDistance((v->getdistance()+1));
                     queue1.push(w);
                     w->setVisited(true);
-                    if (w->getNum() >= maxTrip) {
-                        if (w->getNum() > maxTrip) {
+                    if (w->getdistance() >= maxTrip) {
+                        if (w->getdistance() > maxTrip) {
                             vec.clear();
-                            maxTrip = w->getNum();
+                            maxTrip = w->getdistance();
                         }
                         vec.insert({airport.first, w->getAirport()->getCode()});
                     }
@@ -320,4 +320,39 @@ bool DataManip::sortTopKAirports(pair<string, int> a,pair<string, int> b){
        return a.first < b.first;
     }
     return false;
+}
+
+Graph makeUndirectGraph(Graph graph);
+unordered_set<string> DataManip::essentialAirports(){
+
+    Graph copy = makeUndirectGraph(graph_);
+
+    for (auto v: copy.getVertexSet()){
+        v.second->setVisited(false);
+    }
+
+    int x = 1;
+    unordered_set<string> set;
+    stack<string> stk;
+
+    for (auto v: copy.getVertexSet()){
+
+        if(!v.second->isVisited()){
+            copy.dfsArt(v.second, stk, set, x, v.first);
+        }
+    }
+    cout << set.size();
+    return set;
+}
+
+Graph makeUndirectGraph(Graph graph){
+
+    for ( auto v: graph.getVertexSet()){
+
+        for ( auto edg: v.second->getAdj()){
+            auto w = edg.getDest();
+            graph.addEdge(w->getAirport()->getCode(), v.second->getAirport()->getCode(),"");
+        }
+    }
+    return graph;
 }

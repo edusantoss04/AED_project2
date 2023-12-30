@@ -83,6 +83,7 @@ public:
     //Other info
     pair<set<pair<string,string>>,int> MaximumTrip();
     pair<string,int> maxKAirport(int k);
+    unordered_set<string> essentialAirports();
 
     //Auxiliar functions
     static bool sortTopKAirports(pair<string, int> a,  pair<string, int> b);

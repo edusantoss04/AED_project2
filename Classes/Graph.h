@@ -31,6 +31,7 @@ class Vertex {
     int indegree;          // auxiliary field
     int outdegree;         // auxiliary field
     int num;               // auxiliary field
+    int distance;           // auxiliary field
     int low;               // auxiliary field
 
     void addEdge(Vertex *dest, string airline);
@@ -61,6 +62,10 @@ public:
     int getLow() const;
 
     void setLow(int low);
+
+    int getdistance();
+
+    void setDistance(int distance);
 
     friend class Graph;
 };
@@ -101,6 +106,8 @@ public:
     vector<int> bfsStops(const string& airportCode, int k)const;
     vector<Airport> topsort() const;
     bool isDAG() const;
+
+    void dfsArt(Vertex* vertex, stack<string>& s, unordered_set<string>& set, int& x, string rootCode);
 };
 
 
