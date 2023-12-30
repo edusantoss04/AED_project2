@@ -81,7 +81,7 @@ public:
     int MaximumXDistance(const string& airportCode, int k);
 
     //Other info
-    pair<vector<pair<string,string>>,int> MaximumTrip();
+    pair<set<pair<string,string>>,int> MaximumTrip();
 };
 
 

@@ -249,8 +249,8 @@ int DataManip::MaximumXDistance(const string& airportCode, int k) {
     return graph_.bfsStops(airportCode, k)[0];
 }
 //Other info
-pair<vector<pair<string,string>>,int> DataManip::MaximumTrip(){
-    vector<pair<string,string>> vec;
+pair<set<pair<string,string>>,int> DataManip::MaximumTrip(){
+    set<pair<string,string>> vec;
     int maxTrip=0;
 
     for(auto airport: graph_.getVertexSet()){
@@ -263,6 +263,7 @@ pair<vector<pair<string,string>>,int> DataManip::MaximumTrip(){
         auto vertex= graph_.findVertex(airport.first);
         queue1.push(vertex);
         queue1.front()->setVisited(true);
+        queue1.front()->setNum(0);
 
         while(!queue1.empty()){
             Vertex* v = queue1.front();
@@ -270,17 +271,17 @@ pair<vector<pair<string,string>>,int> DataManip::MaximumTrip(){
             for(auto edg:v->getAdj()){
 
                 auto w= edg.getDest();
-                w->setNum((v->getNum()+1));
+
                 if(!w->isVisited()){
+                    w->setNum((v->getNum()+1));
                     queue1.push(w);
                     w->setVisited(true);
-                    if(w->getNum() > maxTrip){
-                        vec.clear();
-                        maxTrip=w->getNum();
-                        vec.push_back({airport.first,w->getAirport()->getCode()});
-                    }
-                    if(w->getNum()== maxTrip){
-                        vec.push_back({airport.first,w->getAirport()->getCode()});
+                    if (w->getNum() >= maxTrip) {
+                        if (w->getNum() > maxTrip) {
+                            vec.clear();
+                            maxTrip = w->getNum();
+                        }
+                        vec.insert({airport.first, w->getAirport()->getCode()});
                     }
                 }
             }
@@ -288,9 +289,9 @@ pair<vector<pair<string,string>>,int> DataManip::MaximumTrip(){
     }
     cout << "max trip: "<< maxTrip <<endl;
     for (auto r:vec){
-        cout<< r.first << "--> " << r.second;
+        cout<< r.first << "-->" << r.second<<endl;
     }
 
-    pair<vector<pair<string,string>>,int> a = {vec,maxTrip};
+    pair<set<pair<string,string>>,int> a = {vec,maxTrip};
     return a;
 }
