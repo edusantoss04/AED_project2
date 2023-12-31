@@ -195,13 +195,14 @@ void Graph::dfsArt(Vertex* vertex, stack<string>& s, unordered_set<string>& set,
 vector<string> Graph::getPath(string origin, string dest, vector<string> &airlines) {
     vector<string> path = {};
 
-    if (airlines.size() == 0) bfsPath(origin);
+    if (airlines.size() == 0){
+        bfsPath(origin);
+    }
     else bfsWithFilters(origin, airlines);
 
-    string destination = dest;
     path.push_back(dest);
     while (dest != origin) {
-        dest = vertexSet[dest]->getAirport()->getCode();
+        dest = vertexSet[dest]->parent;
         if (dest == "") {
             return {};
         }
@@ -225,17 +226,18 @@ void Graph::bfsPath(const string &airportCode) {
 
     while (!q.empty()) { // while there are still unvisited nodes
 
-        string u = q.front(); q.pop();
+        string u = q.front();
+        q.pop();
 
-        auto node = vertexSet[u];
+        auto vertex = vertexSet[u];
 
-        for (const auto& e : node->adj) {
+        for (const auto& e : vertex->adj) {
             string airportD = e.getDest()->getAirport()->getCode();
 
             if (!vertexSet[airportD]->visited) {
                 q.push(airportD);
                 vertexSet[airportD]->visited = true;
-                //vertexSet[airportD].parent = u;
+                vertexSet[airportD]->parent = u;
                 vertexSet[airportD]->distance = vertexSet[u]->distance+1;
             }
         }
@@ -267,7 +269,7 @@ void Graph::bfsWithFilters(const string &airportCode, vector<string> &airlines) 
                 if (!vertexSet[airportD]->visited) {
                     q.push(airportD);
                     vertexSet[airportD]->visited = true;
-                    //vertexSet[airportD].parent = u;
+                    vertexSet[airportD]->parent = u;
                     vertexSet[airportD]->distance = vertexSet[u]->distance+1;
                 }
             }

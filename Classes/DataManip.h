@@ -6,7 +6,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
-
+#include <cmath>
 
 #include <unordered_map>
 #include "Airport.h"
@@ -15,6 +15,7 @@
 #include "Coordinate.h"
 #include "Country.h"
 #include "Graph.h"
+
 
 
 using namespace std;
@@ -90,6 +91,11 @@ public:
 
     //Flighs Manager functions
     void getFlights(string origin, string dest, int oType, int dType, vector<string>& filters , int oRadius, int dRadius );
+    vector<string> getAirportsInCity(string CityPlusCountry);
+
+    string getClosestAirport(string coordinate);
+    vector<string> getAirportsNearLocation(string coordinate,double radius);
+
 };
 
 
