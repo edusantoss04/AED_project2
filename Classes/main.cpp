@@ -1,7 +1,4 @@
 #include "DataManip.h"
-#include "Menu.h"
-#include "Graph.h"
-#include <iostream>
 
 using namespace std;
 
@@ -12,12 +9,15 @@ int main() {
     d.readAirports();
     d.readFlights();
 
+    //cout << d.nrDirectCountriesFromAirport("OPO");
     //cout << d.nrReachableAirportsFromAirport("BDA");
     //cout << d.nrReachableCountriesFromAirport("OPO");
     //cout << d.nrReachableCitiesFromAirport("OPO");
 
-    cout << d.MaximumXDistance("OPO", 5);
-    //d.MaximumTrip();
+    //cout << d.MaximumXDistance("OPO", 5);
+    //d.maxKAirport(1);
+    //d.essentialAirports();
+    //cout << "314";
 
     return 0;
 

@@ -29,7 +29,9 @@ class Vertex {
     bool visited;          // auxiliary field
     bool processing;       // auxiliary field
     int indegree;          // auxiliary field
+    int outdegree;         // auxiliary field
     int num;               // auxiliary field
+    int distance;           // auxiliary field
     int low;               // auxiliary field
 
     void addEdge(Vertex *dest, string airline);
@@ -49,6 +51,10 @@ public:
 
     void setIndegree(int indegree);
 
+    int getOutdegree() const;
+
+    void setOutdegree(int outdegree);
+
     int getNum() const;
 
     void setNum(int num);
@@ -56,6 +62,10 @@ public:
     int getLow() const;
 
     void setLow(int low);
+
+    int getdistance();
+
+    void setDistance(int distance);
 
     friend class Graph;
 };
@@ -94,8 +104,13 @@ public:
     //vector<Airport> dfs(Airport &airport) const;
     vector<int> bfs(const string& airportCode)const;
     vector<int> bfsStops(const string& airportCode, int k)const;
+    void bfsPath(const string& airportCode);
+    void bfsWithFilters(const string& airportCode, vector<string>& airlines);
     vector<Airport> topsort() const;
     bool isDAG() const;
+
+    void dfsArt(Vertex* vertex, stack<string>& s, unordered_set<string>& set, int& x, string rootCode);
+    vector<string> getPath(string origin, string dest, vector<string>& airlines);
 };
 
 

@@ -78,10 +78,19 @@ void DataManip::readAirports() {
             iss.ignore();
             iss >> longitude;
 
-            City *city_ = new City(city, country);
+            auto findCities= cities_.find(city + "," + country);
+            if(findCities!=cities_.end()){
+                findCities->second->addAirport(code);
+            }
+            else{
+                City *city_ = new City(city, country);
+
+                city_->addAirport(code);
+                cities_.insert({city + "," + country,city_});
+            }
+
             Airport *airport = new Airport(code, name, city, country, latitude, longitude);
             airports_.insert({code, airport});
-            cities_.insert({city,city_});
             countries_.insert({country, new Country(country)});
 
         }
@@ -100,6 +109,8 @@ void DataManip::readFlights() {
 
     for (auto it = airports_.begin(); it != airports_.end(); it++){
         graph_.addVertex(it->second);
+        graph_.findVertex(it->second->getCode())->setIndegree(0);
+        graph_.findVertex(it->second->getCode())->setOutdegree(0);
     }
 
     if (in.is_open()) {
@@ -112,8 +123,13 @@ void DataManip::readFlights() {
             getline(iss, target, ',');
             getline(iss, airline, ',');
 
-            graph_.addEdge(source, target, airline);
+            Vertex* sourceVertex=graph_.findVertex(source);
+            Vertex* targetVertex=graph_.findVertex(target);
 
+            sourceVertex->setOutdegree(sourceVertex->getOutdegree()+1);
+            targetVertex->setIndegree(targetVertex->getIndegree()+1);
+
+            graph_.addEdge(source, target, airline);
         }
 
     } else cout << "Could not open the file\n";

@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "DataManip.h"
 #include "Graph.h"
 
@@ -68,9 +69,7 @@ int DataManip::nrDirectCountriesFromAirport(const string &airportCode) {
     Vertex* SourceAirport = graph_.findVertex(airportCode);
     set<string> reachableCountries;
     for(auto v: SourceAirport->getAdj()){
-        string city_ = v.getDest()->getAirport()->getCity();
-        City *destCity= cities_[city_];
-        reachableCountries.insert(destCity->getCountryName());
+        reachableCountries.insert(v.getDest()->getAirport()->getCountry());
     }
     return reachableCountries.size();
 }
@@ -220,26 +219,12 @@ int DataManip::nrDirectAirportsFromCity(const string& city){
     return airports.size();
 }
 
-int DataManip::nrDirectCountriesFromCity(const std::string &cityName) {
-    set <Vertex*> airports;
-
-    // Select all airports in cityName
-    for(auto v : graph_.getVertexSet()){
-        if(v.second->getAirport()->getCity()==cityName){
-            airports.insert(v.second);
-        }
+int DataManip::nrDirectCountriesFromCity(const std::string &cityNamePlusCountry) {
+    int sum=0;
+    for(auto airportCode : cities_[cityNamePlusCountry]->getAirports()){
+        sum+= graph_.bfs(airportCode)[1]; // [1] to get Countries;
     }
-    // Select all different countries reachable from selected airports
-    set<string> reachableCountries;
-    for(auto a: airports){
-        for(auto e: a->getAdj()){ //destinos do aeroporto
-            string city_= e.getDest()->getAirport()->getCity(); // cidade de destino
-            City *destCity= cities_[city_];
-            reachableCountries.insert(destCity->getCountryName());
-        }
-    }
-
-    return reachableCountries.size();
+    return sum;
 }
 
 
@@ -249,20 +234,21 @@ int DataManip::MaximumXDistance(const string& airportCode, int k) {
     return graph_.bfsStops(airportCode, k)[0];
 }
 //Other info
-pair<vector<pair<string,string>>,int> DataManip::MaximumTrip(){
-    vector<pair<string,string>> vec;
+pair<set<pair<string,string>>,int> DataManip::MaximumTrip(){
+    set<pair<string,string>> vec;
     int maxTrip=0;
 
     for(auto airport: graph_.getVertexSet()){
         for(auto v:graph_.getVertexSet()){
             v.second->setVisited(false);
-            v.second->setNum(-1);
+            v.second->setDistance(-1);
         }
 
         queue<Vertex*> queue1;
         auto vertex= graph_.findVertex(airport.first);
         queue1.push(vertex);
         queue1.front()->setVisited(true);
+        queue1.front()->setDistance(0);
 
         while(!queue1.empty()){
             Vertex* v = queue1.front();
@@ -270,17 +256,17 @@ pair<vector<pair<string,string>>,int> DataManip::MaximumTrip(){
             for(auto edg:v->getAdj()){
 
                 auto w= edg.getDest();
-                w->setNum((v->getNum()+1));
+
                 if(!w->isVisited()){
+                    w->setDistance((v->getdistance()+1));
                     queue1.push(w);
                     w->setVisited(true);
-                    if(w->getNum() > maxTrip){
-                        vec.clear();
-                        maxTrip=w->getNum();
-                        vec.push_back({airport.first,w->getAirport()->getCode()});
-                    }
-                    if(w->getNum()== maxTrip){
-                        vec.push_back({airport.first,w->getAirport()->getCode()});
+                    if (w->getdistance() >= maxTrip) {
+                        if (w->getdistance() > maxTrip) {
+                            vec.clear();
+                            maxTrip = w->getdistance();
+                        }
+                        vec.insert({airport.first, w->getAirport()->getCode()});
                     }
                 }
             }
@@ -288,9 +274,69 @@ pair<vector<pair<string,string>>,int> DataManip::MaximumTrip(){
     }
     cout << "max trip: "<< maxTrip <<endl;
     for (auto r:vec){
-        cout<< r.first << "--> " << r.second;
+        cout<< r.first << "-->" << r.second<<endl;
     }
 
-    pair<vector<pair<string,string>>,int> a = {vec,maxTrip};
+    pair<set<pair<string,string>>,int> a = {vec,maxTrip};
     return a;
+}
+
+
+pair<string,int> DataManip::maxKAirport(int k){
+    vector<pair<string,int>> vec;
+    for (auto vertex : graph_.getVertexSet()){
+        int sum=0;
+        sum+=vertex.second->getOutdegree() + vertex.second->getIndegree();
+        vec.push_back({vertex.second->getAirport()->getName(),sum});
+    }
+    sort(vec.begin(),vec.end(), sortTopKAirports);
+
+    pair<string, int> topKVec;
+    topKVec= vec[k-1];
+    cout<< topKVec.first <<" "<< topKVec.second;
+    return topKVec;
+}
+
+
+bool DataManip::sortTopKAirports(pair<string, int> a,pair<string, int> b){
+    if(a.second > b.second) return true;
+    else if (a.second == b.second){
+       return a.first < b.first;
+    }
+    return false;
+}
+
+Graph makeUndirectedGraph(Graph graph);
+unordered_set<string> DataManip::essentialAirports(){
+
+    Graph copy = makeUndirectedGraph(graph_);
+
+    for (auto v: copy.getVertexSet()){
+        v.second->setVisited(false);
+    }
+
+    int x = 1;
+    unordered_set<string> set;
+    stack<string> stk;
+
+    for (auto v: copy.getVertexSet()){
+
+        if(!v.second->isVisited()){
+            copy.dfsArt(v.second, stk, set, x, v.first);
+        }
+    }
+    cout << set.size();
+    return set;
+}
+
+Graph makeUndirectedGraph(Graph graph){
+
+    for ( auto v: graph.getVertexSet()){
+
+        for ( auto edg: v.second->getAdj()){
+            auto w = edg.getDest();
+            graph.addEdge(w->getAirport()->getCode(), v.second->getAirport()->getCode(),"");
+        }
+    }
+    return graph;
 }

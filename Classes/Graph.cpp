@@ -2,6 +2,7 @@
 // Created by pedrosspedro on 22-12-2023.
 //
 
+#include <algorithm>
 #include "Graph.h"
 
 //Graph functions
@@ -154,6 +155,137 @@ vector<int> Graph::bfsStops(const string &airportCode, int k) const {
     return {airportsSize,countriesSize,citiesSize};
 }
 
+bool isIn(stack<string> s, string airportCode);
+void Graph::dfsArt(Vertex* vertex, stack<string>& s, unordered_set<string>& set, int& x, string rootNode){
+
+    vertex->setVisited(true);
+    vertex->setLow(x);
+    vertex->setNum(x);
+    x++;
+    s.push(vertex->getAirport()->getCode());
+    int child = 0;
+
+    for (auto edg: vertex->getAdj()){
+
+        auto w = edg.getDest();
+
+        if (!w->isVisited()){
+            child++;
+            dfsArt(w, s, set, x, rootNode);
+            vertex->setLow(min(vertex->getLow(), w->getLow()));
+
+            if (w->getLow() >= vertex->getNum()){
+                set.insert(vertex->getAirport()->getCode());
+            }
+        }
+        else if (isIn(s, w->getAirport()->getCode())){
+
+            vertex->setLow(min(vertex->getLow(), w->getNum()));
+        }
+    }
+
+    if (vertex->getAirport()->getCode() == rootNode){
+        if (child <= 1){
+            set.erase(vertex->getAirport()->getCode());
+        }
+    }
+    s.pop();
+}
+
+vector<string> Graph::getPath(string origin, string dest, vector<string> &airlines) {
+    vector<string> path = {};
+
+    if (airlines.size() == 0) bfsPath(origin);
+    else bfsWithFilters(origin, airlines);
+
+    string destination = dest;
+    path.push_back(dest);
+    while (dest != origin) {
+        dest = vertexSet[dest]->getAirport()->getCode();
+        if (dest == "") {
+            return {};
+        }
+        path.push_back(dest);
+    }
+    reverse(path.begin(), path.end());
+    return path;
+}
+
+void Graph::bfsPath(const string &airportCode) {
+
+    for (auto v: vertexSet){
+        v.second->setVisited(false);
+        v.second->setDistance(-1);
+    }
+
+    queue<string> q; // queue of unvisited nodes
+    q.push(airportCode);
+    vertexSet[airportCode]->setVisited(true);
+    vertexSet[airportCode]->setDistance(0);
+
+    while (!q.empty()) { // while there are still unvisited nodes
+
+        string u = q.front(); q.pop();
+
+        auto node = vertexSet[u];
+
+        for (const auto& e : node->adj) {
+            string airportD = e.getDest()->getAirport()->getCode();
+
+            if (!vertexSet[airportD]->visited) {
+                q.push(airportD);
+                vertexSet[airportD]->visited = true;
+                //vertexSet[airportD].parent = u;
+                vertexSet[airportD]->distance = vertexSet[u]->distance+1;
+            }
+        }
+    }
+}
+
+void Graph::bfsWithFilters(const string &airportCode, vector<string> &airlines) {
+
+    for (auto v: vertexSet){
+        v.second->setVisited(false);
+        v.second->setDistance(-1);
+    }
+
+    queue<string> q; // queue of unvisited nodes
+    q.push(airportCode);
+    vertexSet[airportCode]->setVisited(true);
+    vertexSet[airportCode]->setDistance(0);
+
+    while (!q.empty()) { // while there are still unvisited nodes
+
+        string u = q.front(); q.pop();
+
+        auto node = vertexSet[u];
+
+        for (const auto& e : node->getAdj()) {
+            if(find(airlines.begin(), airlines.end(),e.airline)!= airlines.end()) {
+                string airportD = e.dest->getAirport()->getCode();
+
+                if (!vertexSet[airportD]->visited) {
+                    q.push(airportD);
+                    vertexSet[airportD]->visited = true;
+                    //vertexSet[airportD].parent = u;
+                    vertexSet[airportD]->distance = vertexSet[u]->distance+1;
+                }
+            }
+        }
+
+    }
+}
+
+bool isIn(stack<string> s, string airportCode){
+
+    while (!s.empty()){
+        if (airportCode == s.top()){
+            return true;
+        }
+        s.pop();
+    }
+    return false;
+}
 
 //Vertex functions
 
@@ -201,6 +333,14 @@ void Vertex::setIndegree(int indegree) {
     this->indegree = indegree;
 }
 
+int Vertex::getOutdegree() const {
+    return outdegree;
+}
+
+void Vertex::setOutdegree(int outdegree) {
+    this->outdegree=outdegree;
+}
+
 int Vertex::getNum() const {
     return num;
 }
@@ -215,6 +355,14 @@ int Vertex::getLow() const {
 
 void Vertex::setLow(int low) {
     this->low = low;
+}
+
+int Vertex::getdistance() {
+    return distance;
+}
+
+void Vertex::setDistance(int distance) {
+    this->distance = distance;
 }
 
 //Edge functions
