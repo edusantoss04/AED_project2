@@ -69,9 +69,7 @@ int DataManip::nrDirectCountriesFromAirport(const string &airportCode) {
     Vertex* SourceAirport = graph_.findVertex(airportCode);
     set<string> reachableCountries;
     for(auto v: SourceAirport->getAdj()){
-        string city_ = v.getDest()->getAirport()->getCity();
-        City *destCity= cities_[city_];
-        reachableCountries.insert(destCity->getCountryName());
+        reachableCountries.insert(v.getDest()->getAirport()->getCountry());
     }
     return reachableCountries.size();
 }
@@ -221,26 +219,12 @@ int DataManip::nrDirectAirportsFromCity(const string& city){
     return airports.size();
 }
 
-int DataManip::nrDirectCountriesFromCity(const std::string &cityName) {
-    set <Vertex*> airports;
-
-    // Select all airports in cityName
-    for(auto v : graph_.getVertexSet()){
-        if(v.second->getAirport()->getCity()==cityName){
-            airports.insert(v.second);
-        }
+int DataManip::nrDirectCountriesFromCity(const std::string &cityNamePlusCountry) {
+    int sum=0;
+    for(auto airportCode : cities_[cityNamePlusCountry]->getAirports()){
+        sum+= graph_.bfs(airportCode)[1]; // [1] to get Countries;
     }
-    // Select all different countries reachable from selected airports
-    set<string> reachableCountries;
-    for(auto a: airports){
-        for(auto e: a->getAdj()){ //destinos do aeroporto
-            string city_= e.getDest()->getAirport()->getCity(); // cidade de destino
-            City *destCity= cities_[city_];
-            reachableCountries.insert(destCity->getCountryName());
-        }
-    }
-
-    return reachableCountries.size();
+    return sum;
 }
 
 

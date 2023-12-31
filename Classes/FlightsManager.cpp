@@ -18,7 +18,7 @@ void DataManip::getFlights(string origin, string dest, int oType, int dType, vec
 
      for(auto o : originAirp){
          for( auto d : destAirp){
-             vector<string> a = graph_.getPath(o,d,filters); //implementar getPath no Graph
+             //vector<string> a = graph_.getPath(o,d,filters); //implementar getPath no Graph
          }
      }
 }
