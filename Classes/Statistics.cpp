@@ -157,26 +157,15 @@ int DataManip::nrFlightsPerAirline(const string& airlineCode){
 int DataManip::nrFlightsPerCity(const string& city, const string& country){
 
     int nr_flights = 0;
+    auto vec = cities_[city]->getAirports();
 
-    for (auto vertex: graph_.getVertexSet()){
-
-        if(vertex.second->getAirport()->getCity() == city){
-            nr_flights += vertex.second->getAdj().size();
-        }
+    for(auto v : vec){
+        auto vertex = graph_.getVertexSet()[v];
+        nr_flights += vertex->getAdj().size();
+        nr_flights += vertex->getIndegree();
     }
 
-    for (auto vertex: graph_.getVertexSet()){
 
-        if(vertex.second->getAirport()->getCity() != city){
-
-            for (Edge edg: vertex.second->getAdj()){
-
-                if (edg.getDest()->getAirport()->getCity() == city){
-                    nr_flights++;
-                }
-            }
-        }
-    }
 
     return nr_flights;
 }
@@ -272,9 +261,9 @@ pair<set<pair<string,string>>,int> DataManip::MaximumTrip(){
             }
         }
     }
-    cout << "max trip: "<< maxTrip <<endl;
+    cout << endl << "Max trip: "<< maxTrip << endl << endl;
     for (auto r:vec){
-        cout<< r.first << "-->" << r.second<<endl;
+        cout << r.first << "-->" << r.second << endl;
     }
 
     pair<set<pair<string,string>>,int> a = {vec,maxTrip};
@@ -293,7 +282,7 @@ pair<string,int> DataManip::maxKAirport(int k){
 
     pair<string, int> topKVec;
     topKVec= vec[k-1];
-    cout<< topKVec.first <<" "<< topKVec.second;
+    cout << endl << "Top-" << k << " airport with most flights is " << topKVec.first << " with " << topKVec.second << " flights.";
     return topKVec;
 }
 
@@ -325,7 +314,9 @@ unordered_set<string> DataManip::essentialAirports(){
             copy.dfsArt(v.second, stk, set, x, v.first);
         }
     }
-    cout << set.size();
+
+    cout << endl << "Number of essential airports: " << set.size();
+
     return set;
 }
 

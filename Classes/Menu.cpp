@@ -21,7 +21,7 @@ void Menu::MainMenu() {
                  << "│  2 - Get Statistics               │" << endl
                  << "│  3 - Airport Info                 │" << endl
                  << "│  4 - Other Info                   │" << endl
-                 << "│  5 - Exit                         │" << endl
+                 << "│  e - Exit                         │" << endl
                  << "└───────────────────────────────────┘" << endl
                  << endl
                  << "What would you like to do next? ";
@@ -31,19 +31,19 @@ void Menu::MainMenu() {
         cin >> option;
 
         switch (option) {
-            case '1':
+            case ('1'):
                 findFlights();
                 return MainMenu();
-            case '2':
+            case ('2'):
                 getStatistics();
                 return MainMenu();
-            case '3':
+            case ('3'):
                 apInfo();
                 return MainMenu();
-            case '4':
+            case ('4'):
                 otherInfo();
                 return MainMenu();
-            case '5':
+            case ('e'):
                 return exitProgram();
 
             default:
@@ -88,8 +88,8 @@ void Menu::getStatistics() {
          << "│  3 - Airline                       │" << endl
          << "│  4 - Country                       │" << endl
          << "│  5 - City                          │" << endl
-         << "│  6 - Go Back                       │" << endl
-         << "│  7 - Exit                          │" << endl
+         << "│  b - Go Back                       │" << endl
+         << "│  e - Exit                          │" << endl
          << "└────────────────────────────────────┘" << endl
          << endl
          << "What would you like to do next? ";
@@ -109,14 +109,14 @@ void Menu::getStatistics() {
                 airlineStatistics();
                 return getStatistics();
             case ('4'):
-                countryStatistics();
+                //countryStatistics();
                 return getStatistics();
             case ('5'):
                 cityStatistics();
                 return getStatistics();
-            case ('6'):
+            case ('b'):
                 return MainMenu();
-            case ('7'):
+            case ('e'):
                 return exitProgram();
 
             default:
@@ -135,8 +135,8 @@ void Menu::globalStatistics() {
          << "│  1 - Total Airports                │" << endl
          << "│  2 - Total Airlines                │" << endl
          << "│  3 - Total Flights                 │" << endl
-         << "│  4 - Go Back                       │" << endl
-         << "│  5 - Exit                          │" << endl
+         << "│  b - Go Back                       │" << endl
+         << "│  e - Exit                          │" << endl
          << "└────────────────────────────────────┘" << endl
          << endl
          << "What would you like to do next? ";
@@ -159,9 +159,9 @@ void Menu::globalStatistics() {
                 cout << "Number of flights: " << data_.nrFlights() << endl;
                 back();
                 return getStatistics();
-            case ('4'):
+            case ('b'):
                 return;
-            case ('5'):
+            case ('e'):
                 return exitProgram();
 
             default:
@@ -180,7 +180,7 @@ void Menu::airportStatistics() {
          << "└────────────────────────────────────┘" << endl
          << endl;
 
-    cout << "Please insert the airport code:" << endl;
+    cout << "Please insert the airport code: " << endl;
     cin >> ap_code;
 
 
@@ -200,51 +200,51 @@ void Menu::airportStatistics() {
          << "│  6 - Total Reachable Cities        │" << endl
          << "│  7 - Total Reachable Countries     │" << endl
          << "│  8 - Total Reachable Airports      │" << endl
-         << "│  9 - Go Back                       │" << endl
-         << "│  10 - Exit                         │" << endl
+         << "│  b - Go Back                       │" << endl
+         << "│  e - Exit                          │" << endl
          << "└────────────────────────────────────┘" << endl
          << endl;
 
     while(true) {
-        cout << "Choose an option:";
+        cout << "Choose an option: ";
         cin >> option1;
 
         switch (option1) {
             case ('1'):
-                cout << "Number of flights:" << data_.nrFlightsOutOfAirport(ap_code) << endl;
+                cout << "Number of flights: " << data_.nrFlightsOutOfAirport(ap_code) << endl;
                 back();
                 return getStatistics();
             case ('2'):
-                cout << "Number of airlines:" << data_.nrAirlinesOutOfAirport(ap_code) << endl;
+                cout << "Number of airlines: " << data_.nrAirlinesOutOfAirport(ap_code) << endl;
                 back();
                 return getStatistics();
             case ('3'):
-                cout << "Number of directed cities:" << data_.nrDirectCitiesFromAirport(ap_code) << endl;
+                cout << "Number of directed cities: " << data_.nrDirectCitiesFromAirport(ap_code) << endl;
                 back();
                 return getStatistics();
             case ('4'):
-                cout << "Number of directed countries:" << data_.nrDirectCountriesFromAirport(ap_code) << endl;
+                cout << "Number of directed countries: " << data_.nrDirectCountriesFromAirport(ap_code) << endl;
                 back();
                 return getStatistics();
             case ('5'):
-                cout << "Number of directed airports:" << data_.nrDirectAirportsFromAirport(ap_code) << endl;
+                cout << "Number of directed airports: " << data_.nrDirectAirportsFromAirport(ap_code) << endl;
                 back();
                 return getStatistics();
             case ('6'):
-                cout << "Number of reachable cities:" << data_.nrReachableCitiesFromAirport(ap_code) << endl;
+                cout << "Number of reachable cities: " << data_.nrReachableCitiesFromAirport(ap_code) << endl;
                 back();
                 return getStatistics();
             case ('7'):
-                cout << "Number of reachable countries:" << data_.nrReachableCountriesFromAirport(ap_code) << endl;
+                cout << "Number of reachable countries: " << data_.nrReachableCountriesFromAirport(ap_code) << endl;
                 back();
                 return getStatistics();
             case ('8'):
-                cout << "Number of reachable airports:" << data_.nrReachableAirportsFromAirport(ap_code) << endl;
+                cout << "Number of reachable airports: " << data_.nrReachableAirportsFromAirport(ap_code) << endl;
                 back();
                 return getStatistics();
-            case ('9'):
+            case ('b'):
                 return;
-            case ('10'):
+            case ('e'):
                 return exitProgram();
 
             default:
@@ -263,7 +263,7 @@ void Menu::airlineStatistics() {
          << "└────────────────────────────────────┘" << endl
          << endl;
 
-    cout << "Please insert the airline code:" << endl;
+    cout << "Please insert the airline code: " << endl;
     cin >> al_code;
 
 
@@ -276,8 +276,8 @@ void Menu::airlineStatistics() {
     cout << endl << "Choose the statistic:" << endl;
     cout << "┌────────────────────────────────────┐" << endl
          << "│  1 - Total Flights                 │" << endl
-         << "│  2 - Go Back                       │" << endl
-         << "│  3 - Exit                          │" << endl
+         << "│  b - Go Back                       │" << endl
+         << "│  e - Exit                          │" << endl
          << "└────────────────────────────────────┘" << endl
          << endl;
 
@@ -287,12 +287,12 @@ void Menu::airlineStatistics() {
 
         switch (option1) {
             case ('1'):
-                cout << "Number of flights:" << data_.nrFlightsPerAirline(al_code) << endl;
+                cout << "Number of flights: " << data_.nrFlightsPerAirline(al_code) << endl;
                 back();
                 return getStatistics();
-            case ('2'):
+            case ('b'):
                 return;
-            case ('3'):
+            case ('e'):
                 return exitProgram();
 
             default:
@@ -385,8 +385,8 @@ void Menu::cityStatistics() {
 
     cout << "Please insert the name of the city: (Format: <city>,<country> because of repeated city names) " << endl;
 
-    getline(cin >> ci_name, cou_name);
-    if (data_.getCities().find(cou_name) == data_.getCities().end()){
+    getline(cin >> ws, ci_name);
+    if (data_.getCities().find(ci_name) == data_.getCities().end()){
         cout << "\nNot a valid city...\nTry again!\n\n";                 // ver se funfaaaaaaaaaaa
         cityStatistics();
     }
@@ -398,35 +398,35 @@ void Menu::cityStatistics() {
          << "│  2 - Total Directed Cities         │" << endl
          << "│  3 - Total Directed Countries      │" << endl
          << "│  4 - Total Directed Airports       │" << endl
-         << "│  5 - Go Back                       │" << endl
-         << "│  6 - Exit                          │" << endl
+         << "│  b - Go Back                       │" << endl
+         << "│  e - Exit                          │" << endl
          << "└────────────────────────────────────┘" << endl
          << endl;
 
     while(true) {
-        cout << "Choose an option:";
+        cout << "Choose an option: ";
         cin >> input;
 
         switch (input) {
             case ('1'):
-                cout << "Number of flights:" << data_.nrFlightsPerCity(ci_name, cou_name) << endl;
+                cout << "Number of flights: " << data_.nrFlightsPerCity(ci_name, cou_name) << endl;
                 back();
                 return getStatistics();
             case ('2'):
-                cout << "Number of directed cities:" << data_.nrDirectCitiesFromCity(ci_name) << endl;
+                cout << "Number of directed cities: " << data_.nrDirectCitiesFromCity(ci_name) << endl;
                 back();
                 return getStatistics();
             case ('3'):
-                cout << "Number of directed countries:" << data_.nrDirectCountriesFromCity(ci_name) << endl;
+                cout << "Number of directed countries: " << data_.nrDirectCountriesFromCity(ci_name) << endl;
                 back();
                 return getStatistics();
             case ('4'):
-                cout << "Number of directed airports:" << data_.nrDirectAirportsFromCity(ci_name) << endl;
+                cout << "Number of directed airports: " << data_.nrDirectAirportsFromCity(ci_name) << endl;
                 back();
                 return getStatistics();
-            case ('5'):
+            case ('b'):
                 return;
-            case ('6'):
+            case ('e'):
                 return exitProgram();
 
             default:
@@ -446,8 +446,8 @@ void Menu::apInfo() {
          << "│                          Airport Info                           │" << endl
          << "├─────────────────────────────────────────────────────────────────┤" << endl
          << "│  1 - Number of reachable airports with maximum of X flights     │" << endl
-         << "│  2 - Go Back                                                    │" << endl
-         << "│  3 - Exit                                                       │" << endl
+         << "│  b - Go Back                                                    │" << endl
+         << "│  e - Exit                                                       │" << endl
          << "└─────────────────────────────────────────────────────────────────┘" << endl
          << endl
          << "What would you like to do next? ";
@@ -458,7 +458,7 @@ void Menu::apInfo() {
 
         switch (ip) {
             case ('1'):
-                cout << "Please insert the origin airport code:" << endl;
+                cout << "Please insert the origin airport code: " << endl;
                 cin >> ap;
 
                  if (data_.getAirports().find(ap) == data_.getAirports().end()){
@@ -466,15 +466,15 @@ void Menu::apInfo() {
                     apInfo();
                 }
 
-                cout << "Insert the maximum number of flights:" << endl;
+                cout << "Insert the maximum number of flights: " << endl;
                 cin >> max;
                 cout << "Number of reachable airports: " << data_.MaximumXDistance(ap, max) << endl;
                 back();
                 return apInfo();
-            case ('2'):
+            case ('b'):
                 return;
 
-            case ('3'):
+            case ('e'):
                 return exitProgram();
 
             default:
@@ -487,15 +487,16 @@ void Menu::apInfo() {
 
 void Menu::otherInfo() {
     char option;
-    string k;
+    int k;
     cout << endl << endl;
     cout << "┌────────────────────────────────────────────────┐" << endl
          << "│                   Other Info                   │" << endl
          << "├────────────────────────────────────────────────┤" << endl
-         << "│  1 - Airports with top-K number of flights     │" << endl
+         << "│  1 - Airport with top-K number of flights      │" << endl
          << "│  2 - Articulation Points                       │" << endl
-         << "│  3 - Go Back                                   │" << endl
-         << "│  4 - Exit                                      │" << endl
+         << "│  3 - Maximum Trip                              │" << endl
+         << "│  b - Go Back                                   │" << endl
+         << "│  e - Exit                                      │" << endl
          << "└────────────────────────────────────────────────┘" << endl
          << endl
          << "What would you like to do next? ";
@@ -506,28 +507,25 @@ void Menu::otherInfo() {
         cin >> option;
 
         switch(option) {
-            case ('1'):
-                cout << "How many airports with most flights? ";
+            case ('1') : {
+                cout << "Top-K airport with most flights? ";
                 cin >> k;
-                cout << "Top-" << k << " airports with most flights: " ;
-                /*
-                for (auto a: d_.topKairports(stoi(k))){
-                    cout << a << " | " ;
-                }
-                */
-                cout << endl;
+                data_.maxKAirport(k);
                 back();
                 return otherInfo();
+            }
             case ('2'):
-
-                // fazeeeeeeeeerrrrrrrrrrrrrr
-
-
+                data_.essentialAirports();
                 back();
                 return otherInfo();
-            case ('3'):
+
+            case('3'):
+                data_.MaximumTrip();
+                back();
+                return otherInfo();
+            case ('b'):
                 return;
-            case ('4'):
+            case ('e'):
                 return exitProgram();
 
             default:
@@ -535,26 +533,6 @@ void Menu::otherInfo() {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -568,7 +546,7 @@ void Menu::back() const {
          << "e - Exit" << endl;
 
     while (true){
-        cout << "Choose option:";
+        cout << "Choose option: ";
         cin >> input;
         switch (input) {
             case ('b'):

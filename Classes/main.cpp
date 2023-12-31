@@ -1,4 +1,5 @@
 #include "DataManip.h"
+#include "Menu.h"
 
 using namespace std;
 
@@ -18,6 +19,9 @@ int main() {
     //d.maxKAirport(1);
     //d.essentialAirports();
     //cout << "314";
+
+    Menu menu = Menu(d);
+    menu.MainMenu();
 
     return 0;
 
