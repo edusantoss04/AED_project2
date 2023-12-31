@@ -27,6 +27,7 @@ public:
     void cityStatistics();
     void apInfo();
     void otherInfo();
+    vector<string> createVec();
 
 
 

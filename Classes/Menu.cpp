@@ -54,26 +54,163 @@ void Menu::MainMenu() {
 
 
 void Menu::findFlights() {
-    char input;
+    char inputTypeO;
     cout << endl << endl;
     cout << "┌────────────────────────────────────┐" << endl
          << "│            Find Flights            │" << endl
          << "├────────────────────────────────────┤" << endl
          << "│  1 - By Airport                    │" << endl
          << "│  2 - By City                       │" << endl
-         << "│  3 - By Country                    │" << endl
-         << "│  4 - By Coordinates                │" << endl
-         << "│  5 - Go Back                       │" << endl
-         << "│  6 - Exit                          │" << endl
+         << "│  3 - By Coordinates                │" << endl
+         << "│  4 - By Coordinates & Radius       │" << endl
+         << "│  b - Go Back                       │" << endl
+         << "│  e - Exit                          │" << endl
          << "└────────────────────────────────────┘" << endl
          << endl
          << "What would you like to do next? ";
+
+    int flag = 1;
+    string inputOrigin;
+    int inputRadiusO = 0;
+
+    while(flag) {
+        cout << "Choose an option: ";
+        cin >> inputTypeO;
+
+        switch(inputTypeO) {
+            case ('1'):
+                cout << endl << "Insert origin airport: " << endl;
+                cin >> inputOrigin;
+                if (data_.getAirports().find(inputOrigin) == data_.getAirports().end()){
+                    cout << "\nNot a valid airport...\nTry again!\n\n";
+                    findFlights();
+                }
+                flag = 0;
+                break;
+            case ('2'):
+                cout << endl << "Insert origin city: [Format: <city>,<country> (because of repeated city names)]" << endl;
+                getline(cin >>ws, inputOrigin);
+                if (data_.getCities().find(inputOrigin) == data_.getCities().end()){
+                    cout << "\nNot a valid city...\nTry again!\n\n";
+                    findFlights();
+                }
+                flag = 0;
+                break;
+            case ('3'):
+                cout << endl << "Insert origin coordinates: [Format: x.(...),y.(...)]" << endl;
+                cin >> inputOrigin;
+                flag = 0;
+                break;
+            case ('4'):
+                cout << endl << "Insert origin coordinates: [Format: x.(...),y.(...)]" << endl;
+                cin >> inputOrigin;
+                cout << endl << "Insert radius: " << endl;
+                cin >> inputRadiusO;
+                flag = 0;
+                break;
+            case ('b'):
+                return;
+            case ('e'):
+                return exitProgram();
+
+            default:
+                cout << endl << "Not a valid option!" << endl;
+        }
+    }
+
+    cout << endl;
+    cout << "Choose the type of destination:" << endl;
+    cout << "┌────────────────────────────────────┐" << endl
+         << "│  1 - By Airport                    │" << endl
+         << "│  2 - By City                       │" << endl
+         << "│  3 - By Coordinates                │" << endl
+         << "│  4 - By Coordinates & Radius       │" << endl
+         << "│  b - Go Back                       │" << endl
+         << "│  e - Exit                          │" << endl
+         << "└────────────────────────────────────┘" << endl
+         << endl
+         << "What would you like to do next? ";
+
+    char inputTypeD;
+    string inputDestination;
+    int inputRadiusD = 0;
+    int flag2 = 1;
+    while (flag2){
+        cout << "Choose option: ";
+        cin >> inputTypeD;
+        switch (inputTypeD) {
+            case ('1'):
+                cout << endl << "Insert destination airport: " << endl;
+                cin >> inputDestination;
+                if (data_.getAirports().find(inputDestination) == data_.getAirports().end()){
+                    cout << "\nNot a valid airport...\nTry again!\n\n";
+                    findFlights();
+                }
+                flag2 = 0;
+                break;
+
+            case ('2'):
+                cout << endl << "Insert destination city: [Format: <city>,<country> (because of repeated city names)]" << endl;
+                getline(cin >>ws, inputDestination);
+                if (data_.getCities().find(inputDestination) == data_.getCities().end()){
+                    cout << "\nNot a valid city...\nTry again!\n\n";
+                    findFlights();
+                }
+                flag2 = 0;
+                break;
+            case ('3'):
+                cout << endl << "Insert destination coordinates: [Format: x.(...),y.(...)]" << endl;
+                cin >> inputDestination;
+                flag2 = 0;
+                break;
+            case ('4'):
+                cout << endl << "Insert destination coordinates: [Format: x.(...),y.(...)]" << endl;
+                cin >> inputDestination;
+                flag2 = 0;
+                cout << endl << "Insert radius: " << endl;
+                cin >> inputRadiusD;
+                break;
+            case ('b'):
+                return;
+
+            case ('e'):
+                return exitProgram();
+
+            default:
+                cout << endl << "Not a valid option!" << endl;
+        }
+    }
+
+    cout << "Do you want an airline filter?" << endl;
+    cout << "┌────────────────────────────────────┐" << endl
+         << "│  y - Yes                           │" << endl
+         << "│  n - No                            │" << endl
+         << "└────────────────────────────────────┘" << endl
+         << endl
+         << "What would you like to do next? ";
+    char yn;
+    vector<string> filters = {};
+    bool flag3 = true;
+    while(flag3) {
+        cout << "Choose option: ";
+        cin >> yn;
+        switch (yn) {
+            case ('y'):
+                filters = createVec();
+                flag3 = 0;
+                break;
+            case ('n'):
+                flag3 = 0;
+                break;
+            default:
+                cout << "Not a valid option!" << endl;
+        }
+    }
+
+    data_.getFlights(inputOrigin, inputDestination, inputTypeO-48, inputTypeD-48, filters,inputRadiusO ,inputRadiusD);
+    back();
+    return MainMenu();
 }
-
-
-
-
-
 
 
 
@@ -535,6 +672,25 @@ void Menu::otherInfo() {
 }
 
 
+
+vector<string> Menu::createVec() {
+    bool flag = true;
+    vector<string> v = {};
+    cout << "Type airlines to filter and hit Enter and 'd' when done.\n\n";
+
+    while(flag){
+        string inp = "";
+        cin >> inp;
+        if ( inp == "d") flag = false;
+        else{
+            if (data_.getAirlines().find(inp) != data_.getAirlines().end())
+                v.push_back(inp);
+            else cout << "Not a valid airline."<< endl;
+        }
+    }
+    cout << "Filters applied." << endl;
+    return v;
+}
 
 
 

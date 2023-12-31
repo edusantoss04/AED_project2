@@ -59,7 +59,7 @@ void DataManip::readAirlines() {
 
 void DataManip::readAirports() {
 
-    ifstream in("../dataset/airports2.csv");
+    ifstream in("../dataset/airports.csv");
     string line, code, name, city, country;
     double latitude, longitude;
     getline(in, line);
@@ -103,7 +103,7 @@ void DataManip::readAirports() {
 
 void DataManip::readFlights() {
 
-    ifstream in("../dataset/flights2.csv");
+    ifstream in("../dataset/flights.csv");
     string line, source, target, airline;
     getline(in, line);
 
