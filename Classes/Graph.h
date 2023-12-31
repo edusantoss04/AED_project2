@@ -104,10 +104,13 @@ public:
     //vector<Airport> dfs(Airport &airport) const;
     vector<int> bfs(const string& airportCode)const;
     vector<int> bfsStops(const string& airportCode, int k)const;
+    void bfsPath(const string& airportCode);
+    void bfsWithFilters(const string& airportCode, vector<string>& airlines);
     vector<Airport> topsort() const;
     bool isDAG() const;
 
     void dfsArt(Vertex* vertex, stack<string>& s, unordered_set<string>& set, int& x, string rootCode);
+    vector<string> getPath(string origin, string dest, vector<string>& airlines);
 };
 
 
