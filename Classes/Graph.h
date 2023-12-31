@@ -25,7 +25,8 @@ class Vertex;
 
 class Vertex {
     Airport* airport;                // contents
-    vector<Edge> adj;  // list of outgoing edges
+    vector<Edge> adj;
+    string parent;         // list of outgoing edges
     bool visited;          // auxiliary field
     bool processing;       // auxiliary field
     int indegree;          // auxiliary field

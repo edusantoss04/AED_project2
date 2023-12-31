@@ -109,7 +109,7 @@ void Menu::getStatistics() {
                 airlineStatistics();
                 return getStatistics();
             case ('4'):
-                countryStatistics();
+                //countryStatistics();
                 return getStatistics();
             case ('5'):
                 cityStatistics();

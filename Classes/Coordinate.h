@@ -16,6 +16,7 @@ class Coordinate {
     Coordinate(double latitude, double longitude);
     double getLatitude();
     double getLongitude();
+    double DistanceBetCoordinates(Coordinate cord2) const;
 
 };
 
