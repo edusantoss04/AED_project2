@@ -23,4 +23,5 @@ add_executable(AED_project2
         Classes/City.h
         Classes/Menu.cpp
         Classes/Menu.h
-        Classes/Statistics.cpp)
+        Classes/Statistics.cpp
+        Classes/FlightsManager.cpp)

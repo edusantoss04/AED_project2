@@ -1,7 +1,4 @@
 #include "DataManip.h"
-#include "Menu.h"
-#include "Graph.h"
-#include <iostream>
 
 using namespace std;
 
