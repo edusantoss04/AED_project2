@@ -78,10 +78,19 @@ void DataManip::readAirports() {
             iss.ignore();
             iss >> longitude;
 
-            City *city_ = new City(city, country);
+            auto findCities= cities_.find(city + "," + country);
+            if(findCities!=cities_.end()){
+                findCities->second->addAirport(code);
+            }
+            else{
+                City *city_ = new City(city, country);
+
+                city_->addAirport(code);
+                cities_.insert({city + "," + country,city_});
+            }
+
             Airport *airport = new Airport(code, name, city, country, latitude, longitude);
             airports_.insert({code, airport});
-            cities_.insert({city,city_});
             countries_.insert({country, new Country(country)});
 
         }

@@ -26,4 +26,16 @@ void City::setCountry(string country) {
     country_=country;
 }
 
+const unordered_set<string> &City::getAirports() const {
+    return airports;
+}
+
+void City::addAirport(const string &airportCode) {
+    airports.insert(airportCode);
+}
+
+void City::setAirports(const unordered_set<string> &airports) {
+    this->airports = airports;
+}
+
 

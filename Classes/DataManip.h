@@ -88,6 +88,8 @@ public:
     //Auxiliar functions
     static bool sortTopKAirports(pair<string, int> a,  pair<string, int> b);
 
+    //Flighs Manager functions
+    void getFlights(string origin, string dest, int oType, int dType, vector<string>& filters , int oRadius, int dRadius );
 };
 
 
