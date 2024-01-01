@@ -177,6 +177,8 @@ void Menu::findFlights() {
         }
     }
 
+    //filters
+
     cout << "Do you want an airline filter?" << endl;
     cout << "┌────────────────────────────────────┐" << endl
          << "│  y - Yes                           │" << endl
@@ -599,9 +601,9 @@ void Menu::apInfo() {
                     apInfo();
                 }
 
-                cout << "Insert the maximum number of flights: " << endl;
+                cout << "Insert the maximum number of stops: " << endl;
                 cin >> max;
-                cout << "Number of reachable airports: " << data_.MaximumXDistance(ap, max) << endl;
+                data_.MaximumXDistance(ap, max);
                 back();
                 return apInfo();
             case ('b'):

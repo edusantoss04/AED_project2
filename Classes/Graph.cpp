@@ -172,6 +172,7 @@ void Graph::findAllPaths(const string& current, const string& dest, vector<strin
 
 vector<vector<string>> Graph::getPath(const string& origin, const string& dest,vector<string>& airlines) {
     vector<vector<string>> allPaths;
+    allPaths.clear();
 
     if (airlines.size() == 0) {
         bfsPath(origin);
@@ -180,12 +181,16 @@ vector<vector<string>> Graph::getPath(const string& origin, const string& dest,v
     }
 
     vector<string> currentPath;
+    currentPath.clear();
     findAllPaths(dest, origin, currentPath, allPaths);
 
 
     for (auto& path : allPaths) {
         reverse(path.begin(), path.end());
+
     }
+    auto last = unique(allPaths.begin(), allPaths.end());
+    allPaths.erase(last, allPaths.end());
     cout<<"These are the best ways to travel from " <<origin << " to " << dest <<" :" <<endl ;
     for(auto i: allPaths){
 
@@ -268,9 +273,7 @@ void Graph::bfsWithFilters(const string &airportCode, vector<string> &airlines) 
                     vertexSet[airportD]->visited = true;
                     vertexSet[airportD]->parent.push_back(u);
                     vertexSet[airportD]->distance = vertexSet[u]->distance + 1;
-                } else if (vertexSet[airportD]->distance == vertexSet[u]->distance + 1 &&
-                           find(vertexSet[airportD]->parent.begin(), vertexSet[airportD]->parent.end(), u) ==
-                           vertexSet[airportD]->parent.end()) {
+                } else if (vertexSet[airportD]->distance == vertexSet[u]->distance + 1) {
                     vertexSet[airportD]->parent.push_back(u);
                 }
             }

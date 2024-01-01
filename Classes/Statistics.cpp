@@ -220,7 +220,10 @@ int DataManip::nrDirectCountriesFromCity(const std::string &cityNamePlusCountry)
 //Airport Info
 int DataManip::MaximumXDistance(const string& airportCode, int k) {
 
-    return graph_.bfsStops(airportCode, k)[0];
+    cout << "Number of reachable: " << endl;
+    cout << endl << "Airports: " << graph_.bfsStops(airportCode, k)[0] << endl;
+    cout << "Countries: " << graph_.bfsStops(airportCode, k)[1] << endl;
+    cout << "Cities: " << graph_.bfsStops(airportCode, k)[2] << endl;
 }
 //Other info
 pair<set<pair<string,string>>,int> DataManip::MaximumTrip(){
