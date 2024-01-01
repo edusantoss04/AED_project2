@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['nrairlines_0',['nrAirlines',['../class_data_manip.html#af5c949d69541680597fd858e32b92eb5',1,'DataManip']]],
+  ['nrairlinesoutofairport_1',['nrAirlinesOutOfAirport',['../class_data_manip.html#a9de9d3a68fc21030169987da3cc9ab67',1,'DataManip']]],
+  ['nrairports_2',['nrAirports',['../class_data_manip.html#a8160ac5fd222190cff6c11e5f4e05efe',1,'DataManip']]],
+  ['nrdirectairportsfromairport_3',['nrDirectAirportsFromAirport',['../class_data_manip.html#a25c2041c12fa23c6186ae93fac90bcab',1,'DataManip']]],
+  ['nrdirectairportsfromcity_4',['nrDirectAirportsFromCity',['../class_data_manip.html#a1e85fb0b00d5af4d2378338b84c610a5',1,'DataManip']]],
+  ['nrdirectcitiesfromairport_5',['nrDirectCitiesFromAirport',['../class_data_manip.html#a467c7979367f19230d53cf9ee04e7640',1,'DataManip']]],
+  ['nrdirectcitiesfromcity_6',['nrDirectCitiesFromCity',['../class_data_manip.html#a808ce8d930733c0f5f8ae4ed5fbdbe12',1,'DataManip']]],
+  ['nrdirectcountriesfromairport_7',['nrDirectCountriesFromAirport',['../class_data_manip.html#a039cee1e70d0307821e450fe4214a723',1,'DataManip']]],
+  ['nrdirectcountriesfromcity_8',['nrDirectCountriesFromCity',['../class_data_manip.html#a4f7d43b23e17c54e0808da42b432c41a',1,'DataManip']]],
+  ['nrflights_9',['nrFlights',['../class_data_manip.html#a0e62230feee50977cbc06b7c78ce9cba',1,'DataManip']]],
+  ['nrflightsoutofairport_10',['nrFlightsOutOfAirport',['../class_data_manip.html#ad8d57e3626dec86ed9fbe54b2bd076f5',1,'DataManip']]],
+  ['nrflightsperairline_11',['nrFlightsPerAirline',['../class_data_manip.html#ac8be61b05806d8fb1b1606008ca91638',1,'DataManip']]],
+  ['nrflightspercity_12',['nrFlightsPerCity',['../class_data_manip.html#a2fd034182b3b204d12b3ec3803efd341',1,'DataManip']]],
+  ['nrreachableairportsfromairport_13',['nrReachableAirportsFromAirport',['../class_data_manip.html#a2832026e3e78f510654286567e527420',1,'DataManip']]],
+  ['nrreachablecitiesfromairport_14',['nrReachableCitiesFromAirport',['../class_data_manip.html#afa534634ce653ee3c77fa2ec96220a7f',1,'DataManip']]],
+  ['nrreachablecountriesfromairport_15',['nrReachableCountriesFromAirport',['../class_data_manip.html#a7f489139038ed11a94b7b209caad1912',1,'DataManip']]]
+];

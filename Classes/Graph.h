@@ -18,6 +18,9 @@ class Edge;
 class Graph;
 class Vertex;
 
+/**
+ * @brief Represents a vertex in the graph.
+ */
 class Vertex {
     Airport* airport;
     vector<Edge> adj;
@@ -155,6 +158,9 @@ public:
     friend class Graph;
 };
 
+/**
+ * @brief Represents an edge in the graph.
+ */
 class Edge {
     Vertex * dest;      // destination vertex
     string airline ;         // edge weight
@@ -186,6 +192,9 @@ public:
     friend class Vertex ;
 };
 
+/**
+ * @brief Represents a graph.
+ */
 
 class Graph {
     unordered_map<string, Vertex *> vertexSet;

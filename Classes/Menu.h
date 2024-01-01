@@ -1,13 +1,12 @@
-//
-// Created by sofia on 26-12-2023.
-//
-
 #ifndef AED_PROJECT2_MENU_H
 #define AED_PROJECT2_MENU_H
 
 
 #include "DataManip.h"
 
+/**
+ * @brief Represents the menu system for user interactions in the flight-related application.
+ */
 class Menu {
 
 private:

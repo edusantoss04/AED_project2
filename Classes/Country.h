@@ -5,6 +5,11 @@
 #define AED_PROJECT2_COUNTRY_H
 
 using namespace std;
+
+/**
+ * @class Country
+ * @brief Represents a country with its name and associated cities.
+ */
 class Country {
 private:
     string name_;

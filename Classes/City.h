@@ -6,6 +6,10 @@
 
 using namespace std;
 
+/**
+ * @class City
+ * @brief Represents a city with its name, country, and associated airports.
+ */
 class City {
     private:
     string name_;

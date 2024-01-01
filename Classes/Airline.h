@@ -5,6 +5,10 @@
 
 using namespace std;
 
+/**
+ * @class Airline
+ * @brief Represents an airline with its code, name, call sign, and country.
+ */
 class Airline{
 
 private:
