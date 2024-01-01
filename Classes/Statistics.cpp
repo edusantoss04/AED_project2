@@ -323,6 +323,11 @@ unordered_set<string> DataManip::essentialAirports(){
     return set;
 }
 
+/**
+ * @brief Helper function to create an undirected copy of the graph.
+ * @param graph The original graph.
+ * @return An undirected copy of the original graph.
+ */
 Graph makeUndirectedGraph(Graph graph){
 
     for ( auto v: graph.getVertexSet()){
