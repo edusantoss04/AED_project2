@@ -1,7 +1,3 @@
-//
-// Created by edu on 26-12-2023.
-//
-
 #include "Airline.h"
 
 Airline::Airline(string code, string name, string callSign, string country) {

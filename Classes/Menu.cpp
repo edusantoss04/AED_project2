@@ -221,8 +221,7 @@ void Menu::getStatistics() {
          << "│  1 - Global                        │" << endl
          << "│  2 - Airport                       │" << endl
          << "│  3 - Airline                       │" << endl
-         << "│  4 - Country                       │" << endl
-         << "│  5 - City                          │" << endl
+         << "│  4 - City                          │" << endl
          << "│  b - Go Back                       │" << endl
          << "│  e - Exit                          │" << endl
          << "└────────────────────────────────────┘" << endl
@@ -244,9 +243,6 @@ void Menu::getStatistics() {
                 airlineStatistics();
                 return getStatistics();
             case ('4'):
-                //countryStatistics();
-                return getStatistics();
-            case ('5'):
                 cityStatistics();
                 return getStatistics();
             case ('b'):
@@ -438,77 +434,6 @@ void Menu::airlineStatistics() {
 
 
 
-/*
-void Menu::countryStatistics() {
-    char input;
-    string cn_name;
-    cout << "┌────────────────────────────────────┐" << endl
-         << "│         Country Statistics         │" << endl
-         << "└────────────────────────────────────┘" << endl
-         << endl;
-
-    cout << "Please insert the name of the country:" << endl;
-    cin >> cn_name;
-
-
-    string c;
-    getline(cin >>ws, c);
-     if (d_.getCountries().find(c) == d_.getCountries().end()){
-        cout << "\nNot a valid country...\nTry again!\n\n";
-        countryStatistic();
-    }
-
-
-    cout << endl << "Choose the statistic:" << endl;
-    cout << "┌────────────────────────────────────┐" << endl
-         << "│  1 - Total Cities                  │" << endl
-         << "│  2 - Total Airports                │" << endl
-         << "│  3 - Total Airlines                │" << endl
-         << "│  4 - Total Flights                 │" << endl
-         << "│  5 - Total Destinations            │" << endl
-         << "│  6 - Go Back                       │" << endl
-         << "│  7 - Exit                          │" << endl
-         << "└────────────────────────────────────┘" << endl
-         << endl;
-
-    while(true) {
-        cout << "Choose an option:";
-        cin >> input;
-
-        switch (input) {
-            case ('1'):
-                // cout << "Number of cities:" << d_.nCities(c) << endl;
-                back();
-                return getStatistics();
-            case ('2'):
-                // cout << "Number of airports:" << d_.nAirports(c) << endl;
-                back();
-                return getStatistics();
-            case ('3'):
-                // cout << "Number of airlines:" << d_.nAirlines(c) << endl;
-                back();
-                return getStatistics();
-            case ('4'):
-                // cout << "Number of flights:" << d_.nFlights(c) << endl;
-                back();
-                return getStatistics();
-            case ('5'):
-                // cout << "Number of destinations:" << d_.nDestinations(c) << endl;
-                back();
-                return getStatistics();
-            case ('6'):
-                return;
-            case ('7'):
-                return exitProgram();
-
-            default:
-                cout << endl << "Not a valid option!" << endl;
-        }
-    }
-}
-
-*/
-
 void Menu::cityStatistics() {
     char input;
     string ci_name;
@@ -522,7 +447,7 @@ void Menu::cityStatistics() {
 
     getline(cin >> ws, ci_name);
     if (data_.getCities().find(ci_name) == data_.getCities().end()){
-        cout << "\nNot a valid city...\nTry again!\n\n";                 // ver se funfaaaaaaaaaaa
+        cout << "\nNot a valid city...\nTry again!\n\n";
         cityStatistics();
     }
 
