@@ -156,24 +156,51 @@ void Graph::dfsArt(Vertex* vertex, stack<string>& s, unordered_set<string>& set,
     s.pop();
 }
 
-vector<string> Graph::getPath(string origin, string dest, vector<string> &airlines) {
-    vector<string> path = {};
+void Graph::findAllPaths(const string& current, const string& dest, vector<string>& currentPath, vector<vector<string>>& allPaths) {
+    currentPath.push_back(current);
 
-    if (airlines.size() == 0){
-        bfsPath(origin);
-    }
-    else bfsWithFilters(origin, airlines);
-
-    path.push_back(dest);
-    while (dest != origin) {
-        dest = vertexSet[dest]->parent;
-        if (dest == "") {
-            return {};
+    if (current == dest) {
+        allPaths.push_back(currentPath);
+    } else {
+        for (const auto& parent : vertexSet.at(current)->parent) {
+            findAllPaths(parent, dest, currentPath, allPaths);
         }
-        path.push_back(dest);
     }
-    reverse(path.begin(), path.end());
-    return path;
+
+    currentPath.pop_back();
+}
+
+vector<vector<string>> Graph::getPath(const string& origin, const string& dest,vector<string>& airlines) {
+    vector<vector<string>> allPaths;
+
+    if (airlines.size() == 0) {
+        bfsPath(origin);
+    } else {
+        bfsWithFilters(origin, airlines);
+    }
+
+    vector<string> currentPath;
+    findAllPaths(dest, origin, currentPath, allPaths);
+
+
+    for (auto& path : allPaths) {
+        reverse(path.begin(), path.end());
+    }
+    cout<<"These are the best ways to travel from " <<origin << " to " << dest <<" :" <<endl ;
+    for(auto i: allPaths){
+
+        for(auto x: i){
+            if(x==dest){
+                cout<< dest;
+                break;
+            }
+            cout<< x <<" -> ";
+
+        }
+        cout << endl;
+    }
+
+    return allPaths;
 }
 
 void Graph::bfsPath(const string &airportCode) {
@@ -201,8 +228,13 @@ void Graph::bfsPath(const string &airportCode) {
             if (!vertexSet[airportD]->visited) {
                 q.push(airportD);
                 vertexSet[airportD]->visited = true;
-                vertexSet[airportD]->parent = u;
+                vertexSet[airportD]->parent.push_back(u);
                 vertexSet[airportD]->distance = vertexSet[u]->distance+1;
+            }
+            else if (vertexSet[airportD]->distance == vertexSet[u]->distance + 1 &&
+                     find(vertexSet[airportD]->parent.begin(), vertexSet[airportD]->parent.end(), u) ==
+                     vertexSet[airportD]->parent.end()) {
+                vertexSet[airportD]->parent.push_back(u);
             }
         }
     }
@@ -210,7 +242,7 @@ void Graph::bfsPath(const string &airportCode) {
 
 void Graph::bfsWithFilters(const string &airportCode, vector<string> &airlines) {
 
-    for (auto v: vertexSet){
+    for (auto v: vertexSet) {
         v.second->setVisited(false);
         v.second->setDistance(-1);
     }
@@ -222,23 +254,28 @@ void Graph::bfsWithFilters(const string &airportCode, vector<string> &airlines) 
 
     while (!q.empty()) { // while there are still unvisited nodes
 
-        string u = q.front(); q.pop();
+        string u = q.front();
+        q.pop();
 
         auto node = vertexSet[u];
 
-        for (const auto& e : node->getAdj()) {
-            if(find(airlines.begin(), airlines.end(),e.airline)!= airlines.end()) {
+        for (const auto &e: node->getAdj()) {
+            if (find(airlines.begin(), airlines.end(), e.airline) != airlines.end()) {
                 string airportD = e.dest->getAirport()->getCode();
 
                 if (!vertexSet[airportD]->visited) {
                     q.push(airportD);
                     vertexSet[airportD]->visited = true;
-                    vertexSet[airportD]->parent = u;
-                    vertexSet[airportD]->distance = vertexSet[u]->distance+1;
+                    vertexSet[airportD]->parent.push_back(u);
+                    vertexSet[airportD]->distance = vertexSet[u]->distance + 1;
+                } else if (vertexSet[airportD]->distance == vertexSet[u]->distance + 1 &&
+                           find(vertexSet[airportD]->parent.begin(), vertexSet[airportD]->parent.end(), u) ==
+                           vertexSet[airportD]->parent.end()) {
+                    vertexSet[airportD]->parent.push_back(u);
                 }
             }
-        }
 
+        }
     }
 }
 

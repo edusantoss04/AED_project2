@@ -21,33 +21,15 @@ void DataManip::getFlights(string origin, string dest, int oType, int dType, vec
 
      for(auto o : originAirp){
          for( auto d : destAirp){
-             vector<string> a = graph_.getPath(o,d,filters);
+             vector<vector<string>> a = graph_.getPath(o,d,filters);
              if(!a.empty()){
-                 paths.push_back(a);
+                 paths=a;
              }
          }
      }
      if(paths.empty()){
          cout<< "No flights available from "<< origin << " to " << dest << "..." << endl;
      }
-     else{
-         sort(paths.begin(), paths.end(),
-              [](vector<string> &a, vector<string> &b) { return a.size() < b.size(); });
-         int min = paths[0].size();
-         auto aux = find_if(paths.begin(), paths.end(), [min](vector<string> &a) { return a.size() > min; });
-         paths.erase(aux, paths.end());
-         cout << "\n\nBest ways to travel from " << origin << " to " << dest << ": " << endl;
-
-         for (auto it = paths.begin(); it != paths.end(); it++) {
-             cout << "- ";
-             for (int i = 0; i < it->size() -1 ; i++) {
-                 auto a= *it;
-                 cout << (a[i]) << " -> ";
-             }
-             cout<<it->back();
-         }
-     }
-
 
 }
 vector<string> DataManip::getAirportsInCity(string CityPlusCountry){

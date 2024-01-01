@@ -21,7 +21,7 @@ class Vertex;
 class Vertex {
     Airport* airport;
     vector<Edge> adj;
-    string parent;
+    vector<string> parent;
     bool visited;
     bool processing;
     int indegree;
@@ -74,21 +74,30 @@ public:
 
 
 class Graph {
-    unordered_map<string, Vertex*> vertexSet;
+    unordered_map<string, Vertex *> vertexSet;
 
 public:
-    Vertex *findVertex(const string& airportCode) const;
+    Vertex *findVertex(const string &airportCode) const;
+
     bool addVertex(Airport *in);
-    bool addEdge(const string& sourcCode, const string& destCode, const string& airline);
-    unordered_map<string, Vertex*> getVertexSet() const;
 
-    vector<int> bfs(const string& airportCode)const;
-    vector<int> bfsStops(const string& airportCode, int k)const;
-    void bfsPath(const string& airportCode);
-    void bfsWithFilters(const string& airportCode, vector<string>& airlines);
-    void dfsArt(Vertex* vertex, stack<string>& s, unordered_set<string>& set, int& x, string rootCode);
-    vector<string> getPath(string origin, string dest, vector<string>& airlines);
+    bool addEdge(const string &sourcCode, const string &destCode, const string &airline);
+
+    unordered_map<string, Vertex *> getVertexSet() const;
+
+    vector<int> bfs(const string &airportCode) const;
+
+    vector<int> bfsStops(const string &airportCode, int k) const;
+
+    void bfsPath(const string &airportCode);
+
+    void bfsWithFilters(const string &airportCode, vector<string> &airlines);
+
+    void dfsArt(Vertex *vertex, stack<string> &s, unordered_set<string> &set, int &x, string rootCode);
+
+    vector<vector<string>> getPath(const string& origin, const string& dest, vector<string>& airlines);
+
+    void findAllPaths(const string& current, const string& dest, vector<string>& currentPath, vector<vector<string>>& allPaths);
 };
-
 
 #endif //AED_PROJECT2_GRAPH_H
