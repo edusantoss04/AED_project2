@@ -1,4 +1,3 @@
-#include <algorithm>
 #include "DataManip.h"
 void DataManip::getFlights(string origin, string dest, int oType, int dType, vector<string>& filters , int oRadius = 0, int dRadius = 0){
     vector<string> originAirp = {};

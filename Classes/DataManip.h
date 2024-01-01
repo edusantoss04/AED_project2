@@ -269,10 +269,54 @@ public:
 
 
     //Flighs Manager functions
+
+    /**
+    * @brief Retrieves flights based on specified origin and destination parameters.
+    *
+    * This method retrieves flights based on the origin and destination parameters, along with optional filters and radius constraints.
+    * It uses the graph to find paths between airports and considers different types of origin and destination specifications.
+    *
+    * @param origin The origin location or airport code.
+    * @param dest The destination location or airport code.
+    * @param oType The type of origin specification (1: Airport Code, 2: City, 3: Closest Airport, 4: Near Location).
+    * @param dType The type of destination specification (1: Airport Code, 2: City, 3: Closest Airport, 4: Near Location).
+    * @param filters A vector of airline codes to filter the paths.
+    * @param oRadius The radius for origin specification (default: 0 for Airport Code or City).
+    * @param dRadius The radius for destination specification (default: 0 for Airport Code or City).
+    */
     void getFlights(string origin, string dest, int oType, int dType, vector<string>& filters , int oRadius, int dRadius );
+
+    /**
+    * @brief Retrieves airports in a specified city plus country combination.
+    *
+    * This method retrieves airports in the specified city plus country combination using the associated City object.
+    *
+    * @param CityPlusCountry The combined string representing the city plus country.
+    * @return A vector of airport codes in the specified city plus country.
+    */
     vector<string> getAirportsInCity(string CityPlusCountry);
 
+
+    /**
+    * @brief Retrieves the closest airport to a specified coordinate.
+    *
+    * This method calculates the distance between the specified coordinate and all airports, returning the code of the closest airport.
+    *
+    * @param coordinate The string representation of the coordinate in the format "latitude,longitude".
+    * @return The airport code of the closest airport to the specified coordinate.
+    */
     string getClosestAirport(string coordinate);
+
+    /**
+    * @brief Retrieves airports within a specified radius of a given coordinate.
+    *
+    * This method calculates the distance between the specified coordinate and all airports,
+    * returning a vector of airport codes within the specified radius.
+    *
+    * @param coordinate The string representation of the coordinate in the format "latitude,longitude".
+    * @param radius The maximum distance from the specified coordinate to consider airports.
+    * @return A vector of airport codes within the specified radius of the given coordinate.
+    */
     vector<string> getAirportsNearLocation(string coordinate,double radius);
 
 };

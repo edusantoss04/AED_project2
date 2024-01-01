@@ -1,5 +1,17 @@
 #include "Airport.h"
 
+/**
+ * @brief Constructs an Airport object with the given parameters.
+ *
+ * This constructor initializes an Airport object with the specified code, name, city, country, and coordinates.
+ *
+ * @param code The airport code.
+ * @param name The name of the airport.
+ * @param city The city where the airport is located.
+ * @param country The country where the airport is situated.
+ * @param latitude The latitude coordinate of the airport.
+ * @param longitude The longitude coordinate of the airport.
+ */
 Airport::Airport(string& code, string& name, string& city, string& country, double latitude,double longitude) {
     code_=code;
     name_=name;

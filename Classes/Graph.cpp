@@ -282,6 +282,15 @@ void Graph::bfsWithFilters(const string &airportCode, vector<string> &airlines) 
     }
 }
 
+/**
+* @brief Checks if a given airport code is present in the given stack.
+*
+* This function iterates through the elements of the stack to determine if a specified airport code is present.
+*
+* @param s The stack to search for the airport code.
+* @param airportCode The airport code to check for.
+* @return True if the airport code is present in the stack, false otherwise.
+*/
 bool isIn(stack<string> s, string airportCode){
 
     while (!s.empty()){

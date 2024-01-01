@@ -51,11 +51,6 @@ public:
     void airlineStatistics();
 
     /**
- * @brief Handles the process of getting country statistics based on user input.
- */
-    void countryStatistics();
-
-    /**
  * @brief Handles the process of getting city statistics based on user input.
  */
     void cityStatistics();
