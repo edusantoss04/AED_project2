@@ -322,7 +322,7 @@ void Menu::airportStatistics() {
 
 
      if (data_.getAirports().find(ap_code) == data_.getAirports().end()){
-        cout << "\nNot a valid airport...\nTry again!\n\n";                       // reveeerrrrrrrrrr
+        cout << "\nNot a valid airport...\nTry again!\n\n";
         airportStatistics();
     }
 
